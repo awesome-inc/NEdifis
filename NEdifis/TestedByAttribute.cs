@@ -1,7 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using FluentAssertions;
-using NUnit.Framework;
 
 namespace NEdifis
 {
@@ -19,18 +17,5 @@ namespace NEdifis
 
         [Browsable(false)]
         public Type TestClass { get; private set; }
-    }
-
-    [TestFixtureFor(typeof(TestedByAttribute))]
-    // ReSharper disable once InconsistentNaming
-    class TestedByAttribute_Should
-    {
-        [Test]
-        public void Be_Creatable()
-        {
-            var sut = new TestedByAttribute(typeof(object));
-
-            sut.TestClass.Should().Be<object>();
-        }
     }
 }

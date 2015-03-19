@@ -55,10 +55,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BecauseAttribute.cs" />
+    <Compile Include="BecauseAttribute_Should.cs" />
     <Compile Include="ContextFor.cs" />
+    <Compile Include="ContextFor_Should.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestedByAttribute.cs" />
+    <Compile Include="TestedByAttribute_Should.cs" />
     <Compile Include="TestFixtureForAttribute.cs" />
+    <Compile Include="TestFixtureForAttribute_Should.cs" />
     <Compile Include="VerifyAllAttributesAndConventions.cs" />
     <Compile Include="VerifyAttributesAndConventionsBase.cs" />
   </ItemGroup>

@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using FluentAssertions;
 using NSubstitute;
-using NUnit.Framework;
 
 namespace NEdifis
 {
@@ -169,25 +167,6 @@ namespace NEdifis
         public virtual T BuildSut()
         {
             return (T)Activator.CreateInstance(typeof(T), CtorParameter.Select(t => t.Item3).ToArray());
-        }
-    }
-
-    [TestFixtureFor(typeof(ContextFor<>))]
-    // ReSharper disable once InconsistentNaming
-    class ContextFor_Should
-    {
-        // ReSharper disable once ClassNeverInstantiated.Local
-        class Thing { }
-
-        [Test]
-        void Be_Creatable()
-        {
-            var sut = new ContextFor<Thing>();
-
-            sut.Should().NotBeNull();
-
-            var actual = sut.BuildSut();
-            actual.Should().NotBeNull();
         }
     }
 }
