@@ -14,8 +14,8 @@
     <projectUrl>https://github.com/awesome-inc/NEdifis</projectUrl>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System.Xaml" targetFramework="" />
-      <frameworkAssembly assemblyName="System.Xaml.Linq" targetFramework="" />
-      <frameworkAssembly assemblyName="System.Xaml.Serialization" targetFramework="" />
+      <frameworkAssembly assemblyName="System.Xml.Linq" targetFramework="" />
+      <frameworkAssembly assemblyName="System.Xml.Serialization" targetFramework="" />
     </frameworkAssemblies>
     <dependencies>
       <dependency id="FluentAssertions"/>
