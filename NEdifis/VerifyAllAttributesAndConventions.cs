@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace NEdifis
 {
     [TestFixture]
-    public abstract class VerifyAllAttributesAndConventions : VerifyAttributesAndConventionsBase
+    public class VerifyAllAttributesAndConventions : VerifyAttributesAndConventionsBase
     {
         [Test]
         [TestCaseSource("ExcludeFromCodeCoverageClasses")]
