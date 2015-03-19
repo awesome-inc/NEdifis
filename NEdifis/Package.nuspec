@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0"?>
 <package >
   <metadata>
-    <id>NEdifis</id>
-    <version>0.1</version>
+    <id>$id$</id>
+    <version>$version$</version>
     <title>NEdifis</title>
     <authors>tmentzel, mkoertgen</authors>
     <owners>tmentzel, mkoertgen</owners>
