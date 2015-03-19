@@ -1,9 +1,8 @@
-using System.Diagnostics.CodeAnalysis;
 using NUnit.Framework;
 
 namespace NEdifis.Demo
 {
-    [ExcludeFromCodeCoverage]
+    [Explicit("this test has wanted fails")]
     [Category("ExcludedTest")]
     public class VerifyConventions
         : VerifyAllAttributesAndConventions

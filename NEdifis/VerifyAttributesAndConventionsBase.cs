@@ -23,6 +23,8 @@ namespace NEdifis
             // ReSharper disable once CoVariantArrayConversion
             return _assembly
                 .GetTypes()
+                .Where(t => !typeof(VerifyAttributesAndConventionsBase).IsAssignableFrom(t)) // we exclude convention tests and derivants
+                .Where(t=> !(t.IsNested && !t.IsPublic))
                 .Select(t => new object[] { t })
                 .ToArray();
         }
@@ -91,7 +93,8 @@ namespace NEdifis
             tbAttribute.TestClass.Should().Be(testFixtureForClass, because: string.Format("Class {0} should reference {1}", tffAttribute.TestClass.Name, testFixtureForClass));
 
             // now lets see if the naming fits
-            testFixtureForClass.Name.Should().Be(tffAttribute.TestClass.Name + "_Should");
+            var classNameWithoutGeneric = tffAttribute.TestClass.Name.Split('`')[0];
+            testFixtureForClass.Name.Should().Be(classNameWithoutGeneric + "_Should");
         }
 
         public void TestFixtureFor_End_With_Should(Type testFixtureForClass)

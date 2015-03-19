@@ -32,7 +32,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework">
+    <Reference Include="FluentAssertions, Version=3.3.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\FluentAssertions.3.3.0\lib\net45\FluentAssertions.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentAssertions.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\FluentAssertions.3.3.0\lib\net45\FluentAssertions.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -51,7 +60,6 @@
     <Compile Include="FailingTests\PublicFixture_Should.cs" />
     <Compile Include="VerifyConventions.cs" />
     <Compile Include="FailingTests\WithoutTestedBy.cs" />
-    <Compile Include="FailingTests\ExcludedFromCoverageWithEmptyReason.cs" />
     <Compile Include="FailingTests\ExcludedFromCoverageWithoutReason.cs" />
     <Compile Include="FailingTests\FixtureWithoutReferenceBack.cs" />
     <Compile Include="FailingTests\FixtureWithoutReferenceBack_Should.cs" />
