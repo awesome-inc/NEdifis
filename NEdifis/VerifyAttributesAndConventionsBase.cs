@@ -24,7 +24,7 @@ namespace NEdifis
             return _assembly
                 .GetTypes()
                 .Where(t => !typeof(VerifyAttributesAndConventionsBase).IsAssignableFrom(t)) // we exclude convention tests and derivants
-                .Where(t=> !(t.IsNested && !t.IsPublic))
+                .Where(t=> !(t.IsNested && !t.IsPublic) && t.IsClass) // and we exclude interfaces!
                 .Select(t => new object[] { t })
                 .ToArray();
         }
