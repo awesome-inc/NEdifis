@@ -33,5 +33,5 @@
   nuget:
     disable_publish_on_pr: true
   build_script:
-  - build.bat NZazu.sln /t:CoverageReport /v:m
+  - build.bat NEdifis.sln /t:CoverageReport /v:m
   
