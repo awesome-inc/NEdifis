@@ -3,28 +3,28 @@
   <metadata>
     <id>$id$</id>
     <version>$version$</version>
-    <title>NEdifis</title>
+    <title>NEdifis Attibutes</title>
     <authors>tmentzel, mkoertgen</authors>
     <owners>tmentzel, mkoertgen</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>NEdifis, a tool for supporting testing and enforcing naming and testing conventions</description>
-    <summary>NEdifis, a tool for supporting testing and enforcing naming and testing conventions</summary>
+    <description>NEdifis attributes</description>
+    <summary>NEdifis, a tool for supporting testing and enforcing naming and testing conventions. This package contains the 
+    required attributes, which are required by the convention test attributes.</summary>
     <copyright/>
     <releaseNotes>Revision: 0.1</releaseNotes>
     <projectUrl>https://github.com/awesome-inc/NEdifis</projectUrl>
     <frameworkAssemblies>
-      <frameworkAssembly assemblyName="System.Xaml" targetFramework="" />
+      <frameworkAssembly assemblyName="System" targetFramework="" />
+      <frameworkAssembly assemblyName="System.Core" targetFramework="" />
+      <frameworkAssembly assemblyName="System.Xml" targetFramework="" />
       <frameworkAssembly assemblyName="System.Xml.Linq" targetFramework="" />
-      <frameworkAssembly assemblyName="System.Xml.Serialization" targetFramework="" />
     </frameworkAssemblies>
     <dependencies>
       <dependency id="FluentAssertions"/>
-	  <dependency id="NSubstitute"/>
       <dependency id="NUnit"/>
-      <dependency id="NEdifis.Attributes"/>
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\Release\NEdifis.dll" target="lib"/>
+    <file src="bin\Release\NEdifis.Attributes.dll" target="lib"/>
   </files>
 </package>

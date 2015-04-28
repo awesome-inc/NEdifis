@@ -1,4 +1,5 @@
 using FluentAssertions;
+using NEdifis.Attributes;
 using NUnit.Framework;
 
 namespace NEdifis

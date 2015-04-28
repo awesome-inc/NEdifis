@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace NEdifis
+namespace NEdifis.Attributes
 {
     /// <summary>
     /// Attribute to attach a reason to a method especially if you use attributes
