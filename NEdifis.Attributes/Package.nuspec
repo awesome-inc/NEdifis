@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0"?>
 <package >
   <metadata>
-    <id>$id$</id>
+    <id>NEdifis.Attributes</id>
     <version>$version$</version>
     <title>NEdifis Attibutes</title>
     <authors>tmentzel, mkoertgen</authors>

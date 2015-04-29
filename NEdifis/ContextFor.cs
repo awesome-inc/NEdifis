@@ -8,9 +8,9 @@ using NSubstitute;
 namespace NEdifis
 {
     [TestedBy(typeof(ContextFor_Should))]
-    public class ContextFor<T>
+    public sealed class ContextFor<T>
     {
-        protected readonly IList<Tuple<string, Type, object>> CtorParameter = new List<Tuple<string, Type, object>>();
+        private readonly IList<Tuple<string, Type, object>> _ctorParameter = new List<Tuple<string, Type, object>>();
 
         #region constructor
 
@@ -70,7 +70,7 @@ namespace NEdifis
         {
             // add each ctor parameter to an internal dictionary
             foreach (var info in ctor.GetParameters())
-                CtorParameter.Add(
+                _ctorParameter.Add(
                     new Tuple<string, Type, object>(
                         info.Name.ToLower(),
                         info.ParameterType,
@@ -122,15 +122,15 @@ namespace NEdifis
         /// <summary>
         /// replace a constructor parameter with another instance.
         /// </summary>
-        public virtual TK Use<TK>(TK newInstance)
+        public TK Use<TK>(TK newInstance)
         {
-            var tpl = CtorParameter.FirstOrDefault(tuple => typeof(TK) == tuple.Item2);
+            var tpl = _ctorParameter.FirstOrDefault(tuple => typeof(TK) == tuple.Item2);
             if (tpl == null) throw new KeyNotFoundException();
 
-            var tplPos = CtorParameter.IndexOf(tpl);
-            CtorParameter.Remove(tpl);
+            var tplPos = _ctorParameter.IndexOf(tpl);
+            _ctorParameter.Remove(tpl);
             var newTpl = new Tuple<string, Type, object>(tpl.Item1, tpl.Item2, newInstance);
-            CtorParameter.Insert(tplPos, newTpl);
+            _ctorParameter.Insert(tplPos, newTpl);
 
             return newInstance;
         }
@@ -138,10 +138,10 @@ namespace NEdifis
         /// <summary>
         /// get the substitute for the given type<see cref="TK"/>
         /// </summary>
-        public virtual TK For<TK>()
+        public TK For<TK>()
         {
             var tpl =
-                CtorParameter.FirstOrDefault(
+                _ctorParameter.FirstOrDefault(
                     tuple => typeof(TK) == tuple.Item2);
 
             if (tpl != null) return (TK)tpl.Item3;
@@ -151,10 +151,10 @@ namespace NEdifis
         /// <summary>
         /// get the substitute for the <see cref="parameter"/>
         /// </summary>
-        public virtual TK For<TK>(string parameter)
+        public TK For<TK>(string parameter)
         {
             var tpl =
-                CtorParameter.FirstOrDefault(
+                _ctorParameter.FirstOrDefault(
                     tuple =>
                         string.Compare(tuple.Item1, parameter.ToLower(), StringComparison.OrdinalIgnoreCase) == 0);
 
@@ -165,9 +165,9 @@ namespace NEdifis
         /// <summary>
         ///  create the SUT with the parameter from the dictionary
         /// </summary>
-        public virtual T BuildSut()
+        public T BuildSut()
         {
-            return (T)Activator.CreateInstance(typeof(T), CtorParameter.Select(t => t.Item3).ToArray());
+            return (T)Activator.CreateInstance(typeof(T), _ctorParameter.Select(t => t.Item3).ToArray());
         }
     }
 }
