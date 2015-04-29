@@ -1,7 +1,7 @@
 using System;
 using NUnit.Framework;
 
-namespace NEdifis
+namespace NEdifis.Conventions
 {
     [TestFixture]
     public class VerifyAllAttributesAndConventions : VerifyAttributesAndConventionsBase

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 
 namespace NEdifis.Attributes
 {
@@ -15,7 +14,6 @@ namespace NEdifis.Attributes
             TestClass = testClass;
         }
 
-        [Browsable(false)]
         public Type TestClass { get; private set; }
     }
 }
