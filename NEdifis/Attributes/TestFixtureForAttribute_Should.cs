@@ -1,16 +1,16 @@
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace NEdifis
+namespace NEdifis.Attributes
 {
-    [TestFixtureFor(typeof(TestedByAttribute))]
+    [TestFixtureFor(typeof(TestFixtureForAttribute))]
     // ReSharper disable once InconsistentNaming
-    class TestedByAttribute_Should
+    class TestFixtureForAttribute_Should
     {
         [Test]
         public void Be_Creatable()
         {
-            var sut = new TestedByAttribute(typeof(object));
+            var sut = new TestFixtureForAttribute(typeof(object));
 
             sut.TestClass.Should().Be<object>();
         }

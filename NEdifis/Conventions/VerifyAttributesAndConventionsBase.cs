@@ -3,9 +3,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using FluentAssertions;
+using NEdifis.Attributes;
 using NUnit.Framework;
 
-namespace NEdifis
+namespace NEdifis.Conventions
 {
     public abstract class VerifyAttributesAndConventionsBase
     {
@@ -13,7 +14,7 @@ namespace NEdifis
 
         protected VerifyAttributesAndConventionsBase()
         {
-            _assembly = this.GetType().Assembly;
+            _assembly = GetType().Assembly;
         }
 
         #region data sources

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0"?>
 <package >
   <metadata>
-    <id>$id$</id>
+    <id>NEdifis</id>
     <version>$version$</version>
     <title>NEdifis</title>
     <authors>tmentzel, mkoertgen</authors>
@@ -13,18 +13,18 @@
     <releaseNotes>Revision: 0.1</releaseNotes>
     <projectUrl>https://github.com/awesome-inc/NEdifis</projectUrl>
     <frameworkAssemblies>
-      <frameworkAssembly assemblyName="System.Xaml" targetFramework="" />
+      <frameworkAssembly assemblyName="System" targetFramework="" />
+      <frameworkAssembly assemblyName="System.Core" targetFramework="" />
+      <frameworkAssembly assemblyName="System.Xml" targetFramework="" />
       <frameworkAssembly assemblyName="System.Xml.Linq" targetFramework="" />
-      <frameworkAssembly assemblyName="System.Xml.Serialization" targetFramework="" />
     </frameworkAssemblies>
     <dependencies>
       <dependency id="FluentAssertions"/>
-	  <dependency id="NSubstitute"/>
-	  <dependency id="NUnit"/>
-   </dependencies>
+      <dependency id="NSubstitute"/>
+      <dependency id="NUnit"/>
+    </dependencies>
   </metadata>
   <files>
     <file src="bin\Release\NEdifis.dll" target="lib"/>
-    <file src="bin\Release\NEdifis.pdb" target="lib"/>
   </files>
 </package>

@@ -2,7 +2,7 @@ using System;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace NEdifis
+namespace NEdifis.Attributes
 {
     [TestFixtureFor(typeof(BecauseAttribute))]
     // ReSharper disable once InconsistentNaming

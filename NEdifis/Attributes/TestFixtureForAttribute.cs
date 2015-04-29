@@ -1,7 +1,7 @@
 using System;
 using NUnit.Framework;
 
-namespace NEdifis
+namespace NEdifis.Attributes
 {
     /// <summary>
     /// Attribute do define the test fixture which tests the class.

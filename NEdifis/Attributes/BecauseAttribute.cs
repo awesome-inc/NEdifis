@@ -1,11 +1,10 @@
 ﻿using System;
-using System.ComponentModel;
 
-namespace NEdifis
+namespace NEdifis.Attributes
 {
     /// <summary>
-    /// Attribute to attach a reason to a method especially if you use attributes
-    /// which dont support a reson.
+    /// Attribute to attach a reason to a method, especially if you use attributes
+    /// which dont support a reson like ExcludeFromCodeCoverageAttribute
     /// </summary>
     [TestedBy(typeof(BecauseAttribute_Should))]
     public class BecauseAttribute : Attribute
@@ -18,7 +17,6 @@ namespace NEdifis
             Reason = reason;
         }
 
-        [Browsable(false)]
         public string Reason { get; private set; }
     }
 }
