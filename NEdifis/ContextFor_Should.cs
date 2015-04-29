@@ -7,6 +7,7 @@ using NSubstitute;
 using NUnit.Framework;
 
 // ReSharper disable ClassNeverInstantiated.Local
+// ReSharper disable ClassNeverInstantiated.Global
 // ReSharper disable InconsistentNaming
 // ReSharper disable MemberCanBePrivate.Local
 // ReSharper disable UnusedMember.Local
@@ -15,7 +16,7 @@ using NUnit.Framework;
 namespace NEdifis
 {
     [TestFixtureFor(typeof(ContextFor<>))]
-    public class ContextFor_Should
+    class ContextFor_Should
     {
         [TestFixture]
         public class ContextFor_Cannot
@@ -23,23 +24,15 @@ namespace NEdifis
             [Test]
             public void Handle_Class_With_Nested_Constructor_Parameter()
             {
-                new Action(() => new ContextFor<Class_With_Nested_Constructor_Parameter>())
-                    .Invoking(a => a.Invoke())
-                    .ShouldThrow<Exception>();
-
                 // because NSubstitute does not support class with constructor parameter
                 new Action(() => Substitute.For<Class_With_One_Constructor_Parameter>())
                     .Invoking(a => a.Invoke())
                     .ShouldThrow<Exception>();
 
-                // but it support parameterless constructors
-                Substitute.For<Class_Without_Constructor>();
-
                 // as long as they are public
                 new Action(() => Substitute.For<Class_With_One_Empty_Constructor>())
                     .Invoking(a => a.Invoke())
                     .ShouldThrow<Exception>();
-
             }
         }
 
