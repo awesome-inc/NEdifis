@@ -56,6 +56,12 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SolutionInfo.cs">
+      <Link>Properties\SolutionInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\VersionInfo.g.cs">
+      <Link>Properties\VersionInfo.g.cs</Link>
+    </Compile>
     <Compile Include="Attributes\BecauseAttribute.cs" />
     <Compile Include="Attributes\BecauseAttribute_Should.cs" />
     <Compile Include="Attributes\TestedByAttribute.cs" />
@@ -71,9 +77,7 @@
     <None Include="Package.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.build\build.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

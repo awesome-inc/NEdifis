@@ -9,12 +9,11 @@ using System.Runtime.InteropServices;
 #endif
 
 [assembly: AssemblyTrademark("<trademark name>")]
-[assembly: AssemblyProduct("<product name>")]
+[assembly: AssemblyProduct("NEdifis")]
 
-[assembly: AssemblyDescription(@"© <company name>
-<your description1>")]
-[assembly: AssemblyCompany("<your company>")]
-[assembly: AssemblyCopyright("Copyright © <company name> <year-year>")]
+[assembly: AssemblyDescription("Testing framework with convention tests")]
+[assembly: AssemblyCompany("Awesome Incremented")]
+[assembly: AssemblyCopyright("Copyright © Awesome Incremented 2015ff")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 [assembly: NeutralResourcesLanguage("en", UltimateResourceFallbackLocation.MainAssembly)]
