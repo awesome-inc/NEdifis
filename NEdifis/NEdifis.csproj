@@ -78,9 +78,13 @@
     <Compile Include="ConventionBase.cs" />
     <Compile Include="Conventions\AllClassesNeedATest.cs" />
     <Compile Include="Conventions\AllClassesNeedATest_Should.cs" />
+    <Compile Include="Conventions\ClassAndTestReferenceEachOther.cs" />
+    <Compile Include="Conventions\ClassAndTestReferenceEachOther_Should.cs" />
     <Compile Include="Conventions\ExcludeFromCodeCoverageClassHasBecauseAttribute.cs" />
     <Compile Include="Conventions\ExcludeFromCodeCoverageClassHasBecauseAttribute_Should.cs" />
     <Compile Include="Conventions\IVerifyConvention.cs" />
+    <Compile Include="Conventions\TestClassesShouldEndWithShould.cs" />
+    <Compile Include="Conventions\TestClassesShouldEndWithShould_Should.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Package.nuspec" />

@@ -8,6 +8,8 @@ namespace NEdifis
         {
             Conventions.Add(new ExcludeFromCodeCoverageClassHasBecauseAttribute());
             Conventions.Add(new AllClassesNeedATest());
+            Conventions.Add(new ClassAndTestReferenceEachOther());
+            Conventions.Add(new TestClassesShouldEndWithShould());
         }
     }
 }

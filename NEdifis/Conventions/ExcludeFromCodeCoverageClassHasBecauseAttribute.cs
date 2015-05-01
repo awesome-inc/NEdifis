@@ -9,7 +9,13 @@ namespace NEdifis.Conventions
     class ExcludeFromCodeCoverageClassHasBecauseAttribute
         : IVerifyConvention
     {
-        public string HintOnFail { get { return "~a class with an ExcludeFromCodeCoverage attribute requires a Because attribute~"; } }
+        public string HintOnFail
+        {
+            get
+            {
+                return "~a class with an ExcludeFromCodeCoverage attribute requires a Because attribute~";
+            }
+        }
 
         public bool FulfilsConvention(Type t)
         {
