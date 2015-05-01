@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -11,6 +12,8 @@ using NUnit.Framework;
 namespace NEdifis
 {
     [TestFixture]
+    [ExcludeFromCodeCoverage]
+    [Because("I am a test base class")]
     public abstract class ConventionBase
     {
         private readonly Assembly _assembly;
