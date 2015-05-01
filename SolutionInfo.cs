@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("Release")]
 #endif
 
-[assembly: AssemblyTrademark("<trademark name>")]
+[assembly: AssemblyTrademark("NEdifis")]
 [assembly: AssemblyProduct("NEdifis")]
 
 [assembly: AssemblyDescription("Testing framework with convention tests")]
