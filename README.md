@@ -4,14 +4,19 @@ Framework for enhanced testing using NUnit and NSubstitute. This project contain
 attributes which can be used to simplify testing and enforcing conventions to your tests. It 
 helps to glue your implementation and tests together and reference each other.
 
+## `ContextFor`
+
+**TODO**: Documentation of this awesome class implementing a builder pattern 
+
+
 ## Attributes
 
 The additional attributes helps your tests to tell more about themselfes.
 
 ### `Because` Attribute
 
-The because attribute is used to give something a reason, because some attribute don't support
-a reason by default.
+The `Because` attribute is used to give something a reason, because some attribute don't support
+a reason by default like
 
 	[ExcludeFromCodeCoverage]
     [Because("I wrap a system functionality which cannot be tested")]
@@ -21,6 +26,7 @@ a reason by default.
 
 The `Because` makes it easier to tell _why_ you have done something. Attribute are easier than 
 inspecting the file history and the attribute can be used for your convention tests (see below).
+
 
 ### `TestFixtureFor` and `TestedBy`
 
