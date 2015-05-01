@@ -10,6 +10,7 @@ namespace NEdifis
             Conventions.Add(new AllClassesNeedATest());
             Conventions.Add(new ClassAndTestReferenceEachOther());
             Conventions.Add(new TestClassesShouldEndWithShould());
+            Conventions.Add(new TestClassesShouldBePrivate());
         }
     }
 }

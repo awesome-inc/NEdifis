@@ -12,7 +12,7 @@ namespace NEdifis.Conventions
         // ReSharper disable once InconsistentNaming
         class I_Am_A_Test_WithoutShould { }
 
-        // ReSharper disable once UnusedMember.Local
+        // ReSharper disable once InconsistentNaming
         class Am_A_Should_Without_TestFixtureFor_Should { }
 
         [Test]
