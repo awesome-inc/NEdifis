@@ -1,5 +1,9 @@
 #Changelog
 
+## 0.2.3
+	* Ticket attribute added
+	* ContextFor test coverage improved
+
 ## 0.2.2
 	* Assembly info version number fixed
 
