@@ -6,7 +6,7 @@ namespace NEdifis.Attributes
 {
     [TestFixtureFor(typeof(TicketAttribute))]
     // ReSharper disable once InconsistentNaming
-    public class TicketAttribute_Should
+    class TicketAttribute_Should
     {
         [Test]
         public void Be_Creatable()
