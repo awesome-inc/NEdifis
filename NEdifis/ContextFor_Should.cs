@@ -70,7 +70,12 @@ namespace NEdifis
 
         private class Class_With_Optional_Constructor_Parameter
         {
-            public Class_With_Optional_Constructor_Parameter(IList<string> param1, ICloneable cloneable = null) { }
+            public ICloneable Cloneable { get; set; }
+
+            public Class_With_Optional_Constructor_Parameter(IList<string> param1, ICloneable cloneable = null)
+            {
+                Cloneable = cloneable;
+            }
         }
 
         private class Class_With_Two_Similar_Constructor_Parameter
@@ -245,6 +250,26 @@ namespace NEdifis
 
             sut.Param1.Should().Equal(param1a);
             sut.Param2.Should().Equal(param2a);
+        }
+
+        [Test]
+        public void Replace_Instance()
+        {
+            var ctx = new ContextFor<Class_With_Optional_Constructor_Parameter>();
+
+            // now lets replace the clonable
+            var cloneable = Substitute.For<ICloneable>();
+            ctx.Use(cloneable);
+
+            // lets see if the params gut injected properly
+            var sut = ctx.BuildSut();
+            sut.Should().NotBeNull();
+
+            sut.Cloneable.Should().Be(cloneable);
+
+            // get a keynotfound exception if wrong parameter
+            ctx.Invoking(c => c.Use("I am not a constructor parameter"))
+                .ShouldThrow<KeyNotFoundException>();
         }
 
         [Test]

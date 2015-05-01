@@ -124,8 +124,10 @@ namespace NEdifis
         /// </summary>
         public TK Use<TK>(TK newInstance)
         {
-            var tpl = _ctorParameter.FirstOrDefault(tuple => typeof(TK) == tuple.Item2);
-            if (tpl == null) throw new KeyNotFoundException();
+            var tpl = _ctorParameter
+                .FirstOrDefault(tuple => typeof(TK) == tuple.Item2);
+            if (tpl == null)
+                throw new KeyNotFoundException();
 
             var tplPos = _ctorParameter.IndexOf(tpl);
             _ctorParameter.Remove(tpl);
