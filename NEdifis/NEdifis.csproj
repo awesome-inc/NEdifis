@@ -64,16 +64,29 @@
     </Compile>
     <Compile Include="Attributes\BecauseAttribute.cs" />
     <Compile Include="Attributes\BecauseAttribute_Should.cs" />
+    <Compile Include="Attributes\ExcludeFromConventionsAttribute.cs" />
+    <Compile Include="Attributes\ExcludeFromConventionsAttribute_Should.cs" />
     <Compile Include="Attributes\TicketAttribute.cs" />
     <Compile Include="Attributes\TestedByAttribute.cs" />
     <Compile Include="Attributes\TestedByAttribute_Should.cs" />
     <Compile Include="Attributes\TestFixtureForAttribute.cs" />
     <Compile Include="Attributes\TestFixtureForAttribute_Should.cs" />
     <Compile Include="Attributes\TicketAttribute_Should.cs" />
+    <Compile Include="CheckConventions.cs" />
     <Compile Include="ContextFor.cs" />
     <Compile Include="ContextFor_Should.cs" />
-    <Compile Include="Conventions\VerifyAllAttributesAndConventions.cs" />
-    <Compile Include="Conventions\VerifyAttributesAndConventionsBase.cs" />
+    <Compile Include="ConventionBase.cs" />
+    <Compile Include="Conventions\AllClassesNeedATest.cs" />
+    <Compile Include="Conventions\AllClassesNeedATest_Should.cs" />
+    <Compile Include="Conventions\ClassAndTestReferenceEachOther.cs" />
+    <Compile Include="Conventions\ClassAndTestReferenceEachOther_Should.cs" />
+    <Compile Include="Conventions\ExcludeFromCodeCoverageClassHasBecauseAttribute.cs" />
+    <Compile Include="Conventions\ExcludeFromCodeCoverageClassHasBecauseAttribute_Should.cs" />
+    <Compile Include="Conventions\IVerifyConvention.cs" />
+    <Compile Include="Conventions\TestClassesShouldBePrivate.cs" />
+    <Compile Include="Conventions\TestClassesShouldBePrivate_Should.cs" />
+    <Compile Include="Conventions\TestClassesShouldEndWithShould.cs" />
+    <Compile Include="Conventions\TestClassesShouldEndWithShould_Should.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Package.nuspec" />

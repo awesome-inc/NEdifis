@@ -1,5 +1,8 @@
 #Changelog
 
+## 0.3.0
+	* architecture of convention tests chaged (breaking changes)
+
 ## 0.2.3
 	* Ticket attribute added
 	* ContextFor test coverage improved
