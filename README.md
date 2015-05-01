@@ -28,6 +28,18 @@ The `Because` makes it easier to tell _why_ you have done something. Attribute a
 inspecting the file history and the attribute can be used for your convention tests (see below).
 
 
+### `Ticket` Attribute
+
+The ticket attribute is used to add the ticket and a description to a test, especially
+if it is a fix for a reported issue.
+
+    [TestFixtureFor(typeof(TicketAttribute))]
+    [Ticket(4, Title = "Create an attribute to assign a ticket id")]
+    // ReSharper disable once InconsistentNaming
+    class TicketAttribute_Should
+    {
+    }
+
 ### `TestFixtureFor` and `TestedBy`
 
 The TestFixtureFor (which inherits from TestFixture) and TestedBy are symetric to glue the test and 

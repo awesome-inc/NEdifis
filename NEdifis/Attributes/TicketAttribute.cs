@@ -7,6 +7,7 @@ namespace NEdifis.Attributes
     {
         public string Reference { get; private set; }
         public int? Id { get; private set; }
+        public string Title { get; set; }
 
         public TicketAttribute(string reference) : this(null, reference) { }
 

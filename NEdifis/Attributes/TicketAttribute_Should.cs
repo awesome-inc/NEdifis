@@ -5,6 +5,7 @@ using NUnit.Framework;
 namespace NEdifis.Attributes
 {
     [TestFixtureFor(typeof(TicketAttribute))]
+    [Ticket(4, Title = "Create an attribute to assign a ticket id")]
     // ReSharper disable once InconsistentNaming
     class TicketAttribute_Should
     {
@@ -24,6 +25,16 @@ namespace NEdifis.Attributes
             var sut = new TicketAttribute(23);
             sut.Id.Should().Be(23);
             sut.Reference.Should().BeNull();
+        }
+
+        [Test]
+        public void Have__a_Title()
+        {
+            var sut = new TicketAttribute(23) { Title = "foo bar" };
+
+            sut.Id.Should().Be(23);
+            sut.Reference.Should().BeNull();
+            sut.Title.Should().Be("foo bar");
         }
 
         [Test]
