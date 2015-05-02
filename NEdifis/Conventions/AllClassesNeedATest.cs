@@ -5,7 +5,7 @@ using NEdifis.Attributes;
 namespace NEdifis.Conventions
 {
     [TestedBy(typeof(AllClassesNeedATest_Should))]
-    class AllClassesNeedATest : IVerifyConvention
+    public class AllClassesNeedATest : IVerifyConvention
     {
         public string HintOnFail
         {

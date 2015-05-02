@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using FluentAssertions;
 using NEdifis.Attributes;
-using NEdifis.Conventions;
 using NUnit.Framework;
 
-namespace NEdifis
+namespace NEdifis.Conventions
 {
     [TestFixture]
-    [ExcludeFromCodeCoverage]
-    [Because("I am a test base class")]
     public abstract class ConventionBase
     {
         private readonly Assembly _assembly;

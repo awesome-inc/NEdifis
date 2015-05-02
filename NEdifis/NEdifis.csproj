@@ -75,7 +75,7 @@
     <Compile Include="CheckConventions.cs" />
     <Compile Include="ContextFor.cs" />
     <Compile Include="ContextFor_Should.cs" />
-    <Compile Include="ConventionBase.cs" />
+    <Compile Include="Conventions\ConventionBase.cs" />
     <Compile Include="Conventions\AllClassesNeedATest.cs" />
     <Compile Include="Conventions\AllClassesNeedATest_Should.cs" />
     <Compile Include="Conventions\ClassAndTestReferenceEachOther.cs" />

@@ -4,7 +4,7 @@ using NEdifis.Attributes;
 namespace NEdifis.Conventions
 {
     [TestedBy(typeof(TestClassesShouldBePrivate_Should))]
-    class TestClassesShouldBePrivate : IVerifyConvention
+    public class TestClassesShouldBePrivate : IVerifyConvention
     {
         public string HintOnFail
         {
