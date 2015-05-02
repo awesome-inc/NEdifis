@@ -17,5 +17,12 @@ namespace NEdifis.Conventions
 
             sut.FulfilsConvention(typeof(TestClassesShouldBePrivate_Should)).Should().Be(true);
         }
+
+        [Test, Ticket(6, Title = "convention implementations are private")]
+        public void Be_Public()
+        {
+            var sut = new TestClassesShouldBePrivate();
+            sut.GetType().IsPublic.Should().BeTrue();
+        }
     }
 }

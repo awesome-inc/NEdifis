@@ -26,5 +26,12 @@ namespace NEdifis.Conventions
             sut.FulfilsConvention(typeof(I_Am_A_Test_WithoutShould)).Should().Be(false);
             sut.FulfilsConvention(typeof(Am_A_Should_Without_TestFixtureFor_Should)).Should().Be(false);
         }
+
+        [Test, Ticket(6, Title = "convention implementations are private")]
+        public void Be_Public()
+        {
+            var sut = new TestClassesShouldEndWithShould();
+            sut.GetType().IsPublic.Should().BeTrue();
+        }
     }
 }

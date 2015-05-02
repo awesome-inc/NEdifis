@@ -28,5 +28,12 @@ namespace NEdifis.Conventions
             sut.FulfilsConvention(typeof(Excluded_From_Code_Without_Because)).Should().Be(false);
             sut.FulfilsConvention(typeof(Excluded_From_Code_With_Because)).Should().Be(true);
         }
+
+        [Test, Ticket(6, Title = "convention implementations are private")]
+        public void Be_Public()
+        {
+            var sut = new ExcludeFromCodeCoverageClassHasBecauseAttribute();
+            sut.GetType().IsPublic.Should().BeTrue();
+        }
     }
 }

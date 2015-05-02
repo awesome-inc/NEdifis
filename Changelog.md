@@ -1,5 +1,8 @@
 #Changelog
 
+## 0.3.1
+    * conventions are made public. issue #6
+
 ## 0.3.0
 	* architecture of convention tests chaged (breaking changes)
 
