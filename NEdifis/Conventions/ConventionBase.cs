@@ -30,18 +30,24 @@ namespace NEdifis.Conventions
                             !t.GetCustomAttributes<ExcludeFromConventionsAttribute>(true).Any() &&
                             !t.IsInterface &&
                             !IsAnonymousType(t) &&
+                            !IsGeneratedClass(t) &&
                             !t.IsNested)
                 .Select(t => new object[] { t })
                 .ToArray();
         }
 
-        protected static Boolean IsAnonymousType(Type type)
+        protected static bool IsAnonymousType(Type type)
         {
             var hasCompilerGeneratedAttribute = type.GetCustomAttributes(typeof(CompilerGeneratedAttribute), false).Any();
             var nameContainsAnonymousType = type.FullName.Contains("AnonymousType");
             var isAnonymousType = hasCompilerGeneratedAttribute && nameContainsAnonymousType;
 
             return isAnonymousType;
+        }
+
+        protected static bool IsGeneratedClass(Type type)
+        {
+            return type.Name.StartsWith("<");
         }
 
         [TestFixtureSetUp]
