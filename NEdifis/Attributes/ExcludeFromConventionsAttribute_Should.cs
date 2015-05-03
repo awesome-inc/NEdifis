@@ -10,8 +10,9 @@ namespace NEdifis.Attributes
         [Test]
         public void Be_Creatable()
         {
-            var sut = new ExcludeFromConventionsAttribute();
+            var sut = new ExcludeFromConventionsAttribute("this is a required because");
             sut.Should().NotBeNull();
+            sut.Because.Should().Be("this is a required because");
         }
     }
 }
