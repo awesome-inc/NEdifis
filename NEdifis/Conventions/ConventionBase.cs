@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using FluentAssertions;
 using NEdifis.Attributes;
@@ -28,9 +29,19 @@ namespace NEdifis.Conventions
                 .Where(t => !typeof(ConventionBase).IsAssignableFrom(t) &&
                             !t.GetCustomAttributes<ExcludeFromConventionsAttribute>(true).Any() &&
                             !t.IsInterface &&
+                            !IsAnonymousType(t) &&
                             !t.IsNested)
                 .Select(t => new object[] { t })
                 .ToArray();
+        }
+
+        protected static Boolean IsAnonymousType(Type type)
+        {
+            var hasCompilerGeneratedAttribute = type.GetCustomAttributes(typeof(CompilerGeneratedAttribute), false).Any();
+            var nameContainsAnonymousType = type.FullName.Contains("AnonymousType");
+            var isAnonymousType = hasCompilerGeneratedAttribute && nameContainsAnonymousType;
+
+            return isAnonymousType;
         }
 
         [TestFixtureSetUp]
