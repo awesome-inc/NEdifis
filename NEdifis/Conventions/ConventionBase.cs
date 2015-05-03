@@ -29,25 +29,19 @@ namespace NEdifis.Conventions
                 .Where(t => !typeof(ConventionBase).IsAssignableFrom(t) &&
                             !t.GetCustomAttributes<ExcludeFromConventionsAttribute>(true).Any() &&
                             !t.IsInterface &&
-                            !IsAnonymousType(t) &&
-                            !IsGeneratedClass(t) &&
+                            !IsCompilerGenerated(t) &&
                             !t.IsNested)
                 .Select(t => new object[] { t })
                 .ToArray();
         }
 
-        protected static bool IsAnonymousType(Type type)
+        protected static bool IsCompilerGenerated(Type type)
         {
-            var hasCompilerGeneratedAttribute = type.GetCustomAttributes(typeof(CompilerGeneratedAttribute), false).Any();
-            var nameContainsAnonymousType = type.FullName.Contains("AnonymousType");
-            var isAnonymousType = hasCompilerGeneratedAttribute && nameContainsAnonymousType;
+            var hasCompilerGeneratedAttribute = type.GetCustomAttributes(
+                typeof(CompilerGeneratedAttribute), 
+                false).Any();
 
-            return isAnonymousType;
-        }
-
-        protected static bool IsGeneratedClass(Type type)
-        {
-            return type.Name.StartsWith("<");
+            return hasCompilerGeneratedAttribute;
         }
 
         [TestFixtureSetUp]
