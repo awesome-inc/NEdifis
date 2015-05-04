@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -38,10 +39,11 @@ namespace NEdifis.Conventions
         protected static bool IsCompilerGenerated(Type type)
         {
             var hasCompilerGeneratedAttribute = type.GetCustomAttributes(
-                typeof(CompilerGeneratedAttribute), 
+                typeof(CompilerGeneratedAttribute),
                 false).Any();
+            var hasGeneratedCodeAttribute = type.GetCustomAttributes(typeof(GeneratedCodeAttribute), false).Any();
 
-            return hasCompilerGeneratedAttribute;
+            return hasCompilerGeneratedAttribute || hasGeneratedCodeAttribute;
         }
 
         [TestFixtureSetUp]

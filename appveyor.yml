@@ -6,7 +6,7 @@
   environment:
     apiKey:
       secure: 2ZZXSRRBupkaRGRnD1zefkkjmURoXN+QzdeutbdwckTXmmPpe7jmr6HQpgm0R2C4
-  version: 0.3.4.{build}
+  version: 0.3.5.{build}
   nuget:
     disable_publish_on_pr: true
   test: off
