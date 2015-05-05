@@ -12,6 +12,7 @@ using NUnit.Framework;
 namespace NEdifis.Conventions
 {
     [TestFixture]
+    [TestedBy(typeof(ConventionBase_Should))]
     public abstract class ConventionBase
     {
         private readonly Assembly _assembly;

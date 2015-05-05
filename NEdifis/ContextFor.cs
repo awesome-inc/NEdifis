@@ -108,7 +108,9 @@ namespace NEdifis
                                 ? null
                                 : info.ParameterType.IsInterface
                                     ? Substitute.For(new[] { info.ParameterType }, null)
-                                    : CreateInstanceWithSubstitutes(info.ParameterType, substituteOptionalParameter)))
+                                    : info.ParameterType.IsValueType
+                                        ? Activator.CreateInstance(info.ParameterType)
+                                        : CreateInstanceWithSubstitutes(info.ParameterType, substituteOptionalParameter)))
                     .ToList();
 
                 return Activator.CreateInstance(type, parameter.Select(t => t.Item3).ToArray());
