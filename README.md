@@ -1,5 +1,11 @@
 # NEdifis
 
+[![Build status](https://ci.appveyor.com/api/projects/status/tghwql6ktsc9enqw?svg=true)](https://ci.appveyor.com/project/awesome-inc-build/nedifis)
+
+![NuGet Version](https://img.shields.io/nuget/v/NEdifis.svg?style=flat-square)
+
+![NuGet Version](https://img.shields.io/nuget/dt/NEdifis.svg?style=flat-square)
+
 Framework for enhanced testing using NUnit and NSubstitute. This project contains classes and 
 attributes which can be used to simplify testing and enforcing conventions to your tests. It 
 helps to glue your implementation and tests together and reference each other.
