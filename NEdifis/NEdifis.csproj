@@ -87,6 +87,8 @@
     <Compile Include="Conventions\TestClassesShouldBePrivate_Should.cs" />
     <Compile Include="Conventions\TestClassesShouldEndWithShould.cs" />
     <Compile Include="Conventions\TestClassesShouldEndWithShould_Should.cs" />
+    <Compile Include="Diagnostics\TestTraceListener.cs" />
+    <Compile Include="Diagnostics\TestTraceListener_Should.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Package.nuspec" />
