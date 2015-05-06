@@ -80,6 +80,7 @@
     <Compile Include="Conventions\AllClassesNeedATest_Should.cs" />
     <Compile Include="Conventions\ClassAndTestReferenceEachOther.cs" />
     <Compile Include="Conventions\ClassAndTestReferenceEachOther_Should.cs" />
+    <Compile Include="Conventions\ConventionBase_Should.cs" />
     <Compile Include="Conventions\ExcludeFromCodeCoverageClassHasBecauseAttribute.cs" />
     <Compile Include="Conventions\ExcludeFromCodeCoverageClassHasBecauseAttribute_Should.cs" />
     <Compile Include="Conventions\IVerifyConvention.cs" />
