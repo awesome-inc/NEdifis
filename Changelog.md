@@ -1,5 +1,8 @@
 #Changelog
 
+## 0.4
+* TestTraceListener to test debug and trace output. issue #8
+
 ## 0.3.5
     * CompilerGenerated and GeneratedCode ignored
 
@@ -13,27 +16,27 @@
     * ExcludeFromConventions with Because property. issue #9
 
 ## 0.3.1
-    * conventions are made public. issue #6
+* conventions are made public. issue #6
 
 ## 0.3.0
-	* architecture of convention tests chaged (breaking changes)
+* architecture of convention tests chaged (breaking changes)
 
 ## 0.2.3
-	* Ticket attribute added
-	* ContextFor test coverage improved
+* Ticket attribute added
+* ContextFor test coverage improved
 
 ## 0.2.2
-	* Assembly info version number fixed
+* Assembly info version number fixed
 
 ## 0.2.1
-	* Project version number fixed
+* Project version number fixed
 
 ## 0.2.0
-	* Files splitted into namespaces
-	* Code reorganized
+* Files splitted into namespaces
+* Code reorganized
 
 ## 0.1.1.11
-	* AppVeyor integration and automatic deployment to nuget.org
+* AppVeyor integration and automatic deployment to nuget.org
 
 ## 0.1.0
-	* Initial commit
+* Initial commit
