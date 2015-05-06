@@ -2,7 +2,9 @@
 
 ### Who is Edifis?
 
-Edifis is "the best architect in Alexandria", which according to Cleopatra is hardly saying much... And we have to admit she's right when we look at the ramshackle structures built by Edifis and wonderfully illustrated by Albert Uderzo...[more](http://www.asterix.com/the-a-to-z-of-asterix/characters/edifis.html "Edifis")
+Edifis is "the best architect in Alexandria", which according to Cleopatra is hardly saying much... And we have to 
+admit she's right when we look at the ramshackle structures built by Edifis and wonderfully illustrated 
+by Albert Uderzo...[more](http://www.asterix.com/the-a-to-z-of-asterix/characters/edifis.html "Edifis")
 
 # NEdifis
 
@@ -140,5 +142,16 @@ says "in case an exception is caught, the exception should be logged to a file".
 	}
 
 With the dispose pattern, the test trace listener is automatically removed from listeners during dispose. Therefore
-the `using`statement is recommended.
+the `using`statement is recommended. For debug redirect and testing you can use the test trace listener because both
+classes [use the same listener collection]("https://msdn.microsoft.com/en-us/library/system.diagnostics.debug.listeners(v=vs.110).aspx").
+
+	using (var ttl = new TestTraceListener())
+	{
+		Debug.WriteLine("nice debug");
+
+		ttl.MessagesFor(TraceLevel.Verbose).Should().Contain("nice debug");
+	}
+
+
+
 

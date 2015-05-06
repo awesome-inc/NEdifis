@@ -50,8 +50,20 @@ namespace NEdifis.Diagnostics
         {
             using (var ttl = new TestTraceListener())
             {
-                ttl.ActiveTraceLevel=TraceLevel.Verbose;
+                ttl.ActiveTraceLevel = TraceLevel.Verbose;
                 Trace.WriteLine("nice debug");
+
+                ttl.MessagesFor(TraceLevel.Verbose).Should().Contain("nice debug");
+            }
+        }
+
+        [Test]
+        public void Handle_Debug_Using_Debug_Class()
+        {
+            using (var ttl = new TestTraceListener())
+            {
+                ttl.ActiveTraceLevel = TraceLevel.Verbose;
+                Debug.WriteLine("nice debug");
 
                 ttl.MessagesFor(TraceLevel.Verbose).Should().Contain("nice debug");
             }
