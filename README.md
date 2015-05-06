@@ -126,4 +126,19 @@ You can create your own conventions implementing the `IVerifyConvention` Interfa
 
 
 ## Trace and Debug "testing"
-**Todo**: A TraceListener and DebugListener will is planned for version 0.4
+
+### `TestTraceListener`
+
+The test trace listener can be used to verify if a method traced something. Sometimes there is a requirement which 
+says "in case an exception is caught, the exception should be logged to a file". The `TestTraceListener` can do this.
+
+	using (var ttl = new TestTraceListener())
+	{
+		Trace.TraceError("here is a message");
+
+		ttl.MessagesFor(TraceLevel.Error).Should().Contain("here is a message");
+	}
+
+With the dispose pattern, the test trace listener is automatically removed from listeners during dispose. Therefore
+the `using`statement is recommended.
+
