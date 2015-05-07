@@ -48,7 +48,12 @@ namespace NEdifis
 
         private class Class_With_One_Constructor_Parameter
         {
-            public Class_With_One_Constructor_Parameter(IList<string> param1) { }
+            public IList<string> Param1 { get; private set; }
+
+            public Class_With_One_Constructor_Parameter(IList<string> param1)
+            {
+                Param1 = param1;
+            }
         }
 
         [ExcludeFromCodeCoverage]
@@ -152,8 +157,11 @@ namespace NEdifis
         {
             var ctx = new ContextFor<Class_With_One_Constructor_Parameter>();
             ctx.For<IList<string>>().Should().NotBeNull();
+            ctx.For<IList<string>>().IndexOf(Arg.Any<string>()).ReturnsForAnyArgs(4);
+         
             var sut = ctx.BuildSut();
             sut.Should().NotBeNull();
+            sut.Param1.IndexOf("foo").Should().Be(4);
         }
 
         [Test]
