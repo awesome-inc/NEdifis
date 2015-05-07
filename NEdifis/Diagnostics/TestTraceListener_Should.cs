@@ -52,8 +52,11 @@ namespace NEdifis.Diagnostics
             {
                 ttl.ActiveTraceLevel = TraceLevel.Verbose;
                 Trace.WriteLine("nice debug");
-
+#if DEBUG
                 ttl.MessagesFor(TraceLevel.Verbose).Should().Contain("nice debug");
+#else
+                ttl.MessagesFor(TraceLevel.Verbose).Should().BeEmpty();
+#endif
             }
         }
 
