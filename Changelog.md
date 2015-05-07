@@ -4,16 +4,16 @@
 * TestTraceListener to test debug and trace output. issue #8
 
 ## 0.3.5
-    * CompilerGenerated and GeneratedCode ignored
+* CompilerGenerated and GeneratedCode ignored
 
 ## 0.3.4
-    * CompilerGenerated ignored
+* CompilerGenerated ignored
 
 ## 0.3.3
-    * Exclude private generated classes (anonymous types). issue #10
+* Exclude private generated classes (anonymous types). issue #10
 
 ## 0.3.2
-    * ExcludeFromConventions with Because property. issue #9
+* ExcludeFromConventions with Because property. issue #9
 
 ## 0.3.1
 * conventions are made public. issue #6
