@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using FluentAssertions;
 using NUnit.Framework;
 
@@ -17,6 +18,17 @@ namespace NEdifis.Attributes
 
             sut.Should().NotBeNull();
             sut.Should().BeAssignableTo<Attribute>();
+        }
+
+        [Test]
+        [Ticket(13, Title = "a test should resolve or be related to multiple tickets")]
+        public void Allow_Multiple()
+        {
+            var att = typeof(TicketAttribute).GetCustomAttribute<AttributeUsageAttribute>();
+
+            att.Should().NotBeNull();
+            att.AllowMultiple = true;
+            att.ValidOn.Should().Be(AttributeTargets.All);
         }
 
         [Test]

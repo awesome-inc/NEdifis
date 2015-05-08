@@ -74,10 +74,11 @@ inspecting the file history and the attribute can be used for your convention te
 ### `Ticket` Attribute
 
 The ticket attribute is used to add the ticket and a description to a test, especially
-if it is a fix for a reported issue.
+if it is a fix for a reported issue. A ticket attribute can be used multiple times.
 
     [TestFixtureFor(typeof(TicketAttribute))]
     [Ticket(4, Title = "Create an attribute to assign a ticket id")]
+    [Ticket(13, Title = "a test should resolve or be related to multiple tickets")]
     // ReSharper disable once InconsistentNaming
     class TicketAttribute_Should
     {
