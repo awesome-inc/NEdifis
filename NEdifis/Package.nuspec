@@ -13,18 +13,18 @@
     <releaseNotes>Revision: 0.1</releaseNotes>
     <projectUrl>https://github.com/awesome-inc/NEdifis</projectUrl>
     <frameworkAssemblies>
-      <frameworkAssembly assemblyName="System" targetFramework="" />
-      <frameworkAssembly assemblyName="System.Core" targetFramework="" />
-      <frameworkAssembly assemblyName="System.Xml" targetFramework="" />
-      <frameworkAssembly assemblyName="System.Xml.Linq" targetFramework="" />
+      <frameworkAssembly assemblyName="System" />
+      <frameworkAssembly assemblyName="System.Core" />
+      <frameworkAssembly assemblyName="System.Xml"  />
+      <frameworkAssembly assemblyName="System.Xml.Linq" />
     </frameworkAssemblies>
     <dependencies>
-      <dependency id="FluentAssertions"/>
-      <dependency id="NSubstitute"/>
-      <dependency id="NUnit"/>
+      <dependency id="FluentAssertions" version="3.3.0"/>
+      <dependency id="NSubstitute" version="1.8.1.0" />
+      <dependency id="NUnit" version="2.6.4"/>
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\Release\NEdifis.dll" target="lib"/>
+    <file src="bin\Release\NEdifis.dll" target="lib\net45"/>
   </files>
 </package>

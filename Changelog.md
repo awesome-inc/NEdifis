@@ -1,5 +1,9 @@
 #Changelog
 
+## 0.4.1
+* Allow multiple ticket attributes. issue #13
+* TestTraceListener made public. issue #16
+
 ## 0.4
 * TestTraceListener to test debug and trace output. issue #8
 

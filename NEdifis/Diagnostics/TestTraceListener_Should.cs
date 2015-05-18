@@ -10,6 +10,13 @@ namespace NEdifis.Diagnostics
     class TestTraceListener_Should
     {
         [Test]
+        [Ticket(16)]
+        public void Be_Public()
+        {
+            typeof (TestTraceListener).IsPublic.Should().BeTrue();
+        }
+
+        [Test]
         public void Be_Creatable()
         {
             // lets count the before

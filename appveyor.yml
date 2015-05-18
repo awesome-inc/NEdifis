@@ -6,7 +6,7 @@
   environment:
     apiKey:
       secure: 2ZZXSRRBupkaRGRnD1zefkkjmURoXN+QzdeutbdwckTXmmPpe7jmr6HQpgm0R2C4
-  version: 0.4.0.{build}
+  version: 0.4.1.{build}
   nuget:
     disable_publish_on_pr: true
   test: off
@@ -27,7 +27,7 @@
 
 # "fall back" configuration for all other branches
 - 
-  version: 0.4.0.{build}
+  version: 0.4.1.{build}
   test: off
   deploy: off
   nuget:

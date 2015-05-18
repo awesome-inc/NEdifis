@@ -3,6 +3,7 @@
 namespace NEdifis.Attributes
 {
     [TestedBy(typeof(TicketAttribute_Should))]
+    [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
     public class TicketAttribute : Attribute
     {
         public string Reference { get; private set; }

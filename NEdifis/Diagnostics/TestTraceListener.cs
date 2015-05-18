@@ -5,7 +5,7 @@ using NEdifis.Attributes;
 namespace NEdifis.Diagnostics
 {
     [TestedBy(typeof(TestTraceListener_Should))]
-    sealed class TestTraceListener : TraceListener
+    public sealed class TestTraceListener : TraceListener
     {
         #region construct and dispose
 
