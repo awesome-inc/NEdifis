@@ -34,6 +34,12 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>NEdifis.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="FluentAssertions, Version=3.3.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -86,6 +92,7 @@
     <Compile Include="Diagnostics\TestTraceListener_Should.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="NEdifis.snk" />
     <None Include="Package.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
