@@ -6,18 +6,11 @@ namespace NEdifis.Attributes
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
     public class TicketAttribute : Attribute
     {
-        public string Reference { get; private set; }
-        public int? Id { get; private set; }
+        public string Id { get; private set; }
         public string Title { get; set; }
 
-        public TicketAttribute(string reference) : this(null, reference) { }
-
-        public TicketAttribute(int id) : this(id, null) { }
-
-        public TicketAttribute(int? id, string reference)
+        public TicketAttribute(string id)
         {
-            Id = id;
-            Reference = reference;
         }
     }
 }

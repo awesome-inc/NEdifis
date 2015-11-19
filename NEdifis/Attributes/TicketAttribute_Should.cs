@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace NEdifis.Attributes
 {
     [TestFixtureFor(typeof(TicketAttribute))]
-    [Ticket(4, Title = "Create an attribute to assign a ticket id")]
+    [Ticket("#42", Title = "Create an attribute to assign a ticket id")]
     // ReSharper disable once InconsistentNaming
     internal class TicketAttribute_Should
     {
@@ -21,7 +21,7 @@ namespace NEdifis.Attributes
         }
 
         [Test]
-        [Ticket(13, Title = "a test should resolve or be related to multiple tickets")]
+        [Ticket("13", Title = "a test should resolve or be related to multiple tickets")]
         public void Allow_Multiple()
         {
             var att = typeof(TicketAttribute).GetCustomAttribute<AttributeUsageAttribute>();
@@ -32,37 +32,11 @@ namespace NEdifis.Attributes
         }
 
         [Test]
-        public void Have_Id()
+        public void Have_Id_and_Title()
         {
-            var sut = new TicketAttribute(23);
-            sut.Id.Should().Be(23);
-            sut.Reference.Should().BeNull();
-        }
-
-        [Test]
-        public void Have__a_Title()
-        {
-            var sut = new TicketAttribute(23) { Title = "foo bar" };
-
-            sut.Id.Should().Be(23);
-            sut.Reference.Should().BeNull();
+            var sut = new TicketAttribute("#23") { Title = "foo bar" };
+            sut.Id.Should().Be("#23");
             sut.Title.Should().Be("foo bar");
-        }
-
-        [Test]
-        public void Have_Reference()
-        {
-            var sut = new TicketAttribute("#42");
-            sut.Reference.Should().Be("#42");
-            sut.Id.Should().NotHaveValue();
-        }
-
-        [Test]
-        public void Have_Id_And_Reference()
-        {
-            var sut = new TicketAttribute(23, "#42");
-            sut.Reference.Should().Be("#42");
-            sut.Id.Should().Be(23);
         }
     }
 }
