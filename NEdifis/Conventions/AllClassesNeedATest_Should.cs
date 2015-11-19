@@ -5,10 +5,9 @@ using NUnit.Framework;
 namespace NEdifis.Conventions
 {
     [TestFixtureFor(typeof(AllClassesNeedATest))]
-    // ReSharper disable once InconsistentNaming
+    // ReSharper disable InconsistentNaming
     internal class AllClassesNeedATest_Should
     {
-        // ReSharper disable once InconsistentNaming
         private class Does_Not_Have_A_Test { }
 
         [Test]
@@ -23,7 +22,7 @@ namespace NEdifis.Conventions
             sut.FulfilsConvention(typeof(Does_Not_Have_A_Test)).Should().Be(false);
         }
 
-        [Test, Ticket(6, Title = "convention implementations are private")]
+        [Test, Issue("#6", Title = "convention implementations are private")]
         public void Be_Public()
         {
             var sut = new AllClassesNeedATest();

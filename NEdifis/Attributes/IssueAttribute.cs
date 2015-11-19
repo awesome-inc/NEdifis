@@ -2,15 +2,16 @@
 
 namespace NEdifis.Attributes
 {
-    [TestedBy(typeof(TicketAttribute_Should))]
+    [TestedBy(typeof(IssueAttribute_Should))]
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
-    public class TicketAttribute : Attribute
+    public class IssueAttribute : Attribute
     {
         public string Id { get; private set; }
         public string Title { get; set; }
 
-        public TicketAttribute(string id)
+        public IssueAttribute(string id)
         {
+            Id = id;
         }
     }
 }

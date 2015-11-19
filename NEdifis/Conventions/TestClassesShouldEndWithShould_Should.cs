@@ -27,7 +27,7 @@ namespace NEdifis.Conventions
             sut.FulfilsConvention(typeof(Am_A_Should_Without_TestFixtureFor_Should)).Should().Be(false);
         }
 
-        [Test, Ticket(6, Title = "convention implementations are private")]
+        [Test, Issue("#6", Title = "convention implementations are private")]
         public void Be_Public()
         {
             var sut = new TestClassesShouldEndWithShould();

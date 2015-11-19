@@ -69,12 +69,12 @@
     <Compile Include="Attributes\BecauseAttribute_Should.cs" />
     <Compile Include="Attributes\ExcludeFromConventionsAttribute.cs" />
     <Compile Include="Attributes\ExcludeFromConventionsAttribute_Should.cs" />
-    <Compile Include="Attributes\TicketAttribute.cs" />
+    <Compile Include="Attributes\IssueAttribute.cs" />
     <Compile Include="Attributes\TestedByAttribute.cs" />
     <Compile Include="Attributes\TestedByAttribute_Should.cs" />
     <Compile Include="Attributes\TestFixtureForAttribute.cs" />
     <Compile Include="Attributes\TestFixtureForAttribute_Should.cs" />
-    <Compile Include="Attributes\TicketAttribute_Should.cs" />
+    <Compile Include="Attributes\IssueAttribute_Should.cs" />
     <Compile Include="CheckConventions.cs" />
     <Compile Include="ContextFor.cs" />
     <Compile Include="ContextFor_Should.cs" />

@@ -10,7 +10,7 @@ namespace NEdifis.Diagnostics
     internal class TestTraceListener_Should
     {
         [Test]
-        [Ticket(16)]
+        [Issue("#16")]
         public void Be_Public()
         {
             typeof (TestTraceListener).IsPublic.Should().BeTrue();
