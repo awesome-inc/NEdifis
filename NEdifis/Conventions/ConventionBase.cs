@@ -48,7 +48,7 @@ namespace NEdifis.Conventions
         }
 
         [OneTimeSetUp]
-        protected abstract void Configure();
+        protected virtual void Configure() { }
 
         [Test]
         [TestCaseSource(nameof(AllClasses))]
@@ -59,11 +59,17 @@ namespace NEdifis.Conventions
 
             foreach (var convention in Conventions)
             {
-                var isValid = convention.FulfilsConvention(cls);
-                if (isValid) continue;
-
-                failMessage.Append(convention.HintOnFail);
-                hasAtLeastOneIssue = true;
+                try
+                {
+                    var filter = convention.Filter;
+                    if (filter == null || filter(cls))
+                        convention.Verify(cls);
+                }
+                catch (Exception ex)
+                {
+                    failMessage.Append(ex);
+                    hasAtLeastOneIssue = true;
+                }
             }
 
             hasAtLeastOneIssue.Should().BeFalse(failMessage.ToString());
