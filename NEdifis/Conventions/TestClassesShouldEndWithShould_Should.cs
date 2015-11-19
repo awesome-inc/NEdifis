@@ -6,14 +6,14 @@ namespace NEdifis.Conventions
 {
     [TestFixtureFor(typeof(TestClassesShouldEndWithShould))]
     // ReSharper disable once InconsistentNaming
-    class TestClassesShouldEndWithShould_Should
+    internal class TestClassesShouldEndWithShould_Should
     {
         [TestFixtureFor(typeof(TestClassesShouldEndWithShould))]
         // ReSharper disable once InconsistentNaming
-        class I_Am_A_Test_WithoutShould { }
+        private class I_Am_A_Test_WithoutShould { }
 
         // ReSharper disable once InconsistentNaming
-        class Am_A_Should_Without_TestFixtureFor_Should { }
+        private class Am_A_Should_Without_TestFixtureFor_Should { }
 
         [Test]
         public void Be_Creatable()

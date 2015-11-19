@@ -16,7 +16,7 @@ using NUnit.Framework;
 namespace NEdifis
 {
     [TestFixtureFor(typeof(ContextFor<>))]
-    class ContextFor_Should
+    internal class ContextFor_Should
     {
         [TestFixture]
         public class ContextFor_Cannot

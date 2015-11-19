@@ -37,7 +37,7 @@ namespace NEdifis.Conventions
                 .ToArray();
         }
 
-        protected static bool IsCompilerGenerated(Type type)
+        private static bool IsCompilerGenerated(Type type)
         {
             var hasCompilerGeneratedAttribute = type.GetCustomAttributes(
                 typeof(CompilerGeneratedAttribute),
@@ -47,11 +47,11 @@ namespace NEdifis.Conventions
             return hasCompilerGeneratedAttribute || hasGeneratedCodeAttribute;
         }
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         protected abstract void Configure();
 
         [Test]
-        [TestCaseSource("AllClasses")]
+        [TestCaseSource(nameof(AllClasses))]
         public void Check(Type cls)
         {
             var failMessage = new StringBuilder();

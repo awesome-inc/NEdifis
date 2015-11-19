@@ -7,7 +7,7 @@ namespace NEdifis.Diagnostics
 {
     [TestFixtureFor(typeof(TestTraceListener))]
     // ReSharper disable once InconsistentNaming
-    class TestTraceListener_Should
+    internal class TestTraceListener_Should
     {
         [Test]
         [Ticket(16)]

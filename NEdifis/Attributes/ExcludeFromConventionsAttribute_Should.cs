@@ -5,7 +5,7 @@ namespace NEdifis.Attributes
 {
     [TestFixtureFor(typeof(ExcludeFromConventionsAttribute))]
     // ReSharper disable once InconsistentNaming
-    class ExcludeFromConventionsAttribute_Should
+    internal class ExcludeFromConventionsAttribute_Should
     {
         [Test]
         public void Be_Creatable()

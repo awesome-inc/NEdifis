@@ -7,7 +7,7 @@ namespace NEdifis.Conventions
 {
     [TestFixtureFor(typeof(ConventionBase))]
     // ReSharper disable once InconsistentNaming
-    class ConventionBase_Should
+    internal class ConventionBase_Should
     {
         private class ConventionBaseImpl : ConventionBase
         {

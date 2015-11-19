@@ -6,7 +6,7 @@ namespace NEdifis.Conventions
 {
     [TestFixtureFor(typeof(TestClassesShouldBePrivate))]
     // ReSharper disable once InconsistentNaming
-    class TestClassesShouldBePrivate_Should
+    internal class TestClassesShouldBePrivate_Should
     {
         [Test]
         public void Be_Creatable()

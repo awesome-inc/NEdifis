@@ -6,10 +6,10 @@ namespace NEdifis.Conventions
 {
     [TestFixtureFor(typeof(AllClassesNeedATest))]
     // ReSharper disable once InconsistentNaming
-    class AllClassesNeedATest_Should
+    internal class AllClassesNeedATest_Should
     {
         // ReSharper disable once InconsistentNaming
-        class Does_Not_Have_A_Test { }
+        private class Does_Not_Have_A_Test { }
 
         [Test]
         public void Be_Creatable()

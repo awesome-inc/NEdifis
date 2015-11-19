@@ -2,7 +2,7 @@ using NEdifis.Conventions;
 
 namespace NEdifis
 {
-    class CheckConventions : ConventionBase
+    internal class CheckConventions : ConventionBase
     {
         protected override void Configure()
         {

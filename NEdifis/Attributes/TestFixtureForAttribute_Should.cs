@@ -5,7 +5,7 @@ namespace NEdifis.Attributes
 {
     [TestFixtureFor(typeof(TestFixtureForAttribute))]
     // ReSharper disable once InconsistentNaming
-    class TestFixtureForAttribute_Should
+    internal class TestFixtureForAttribute_Should
     {
         [Test]
         public void Be_Creatable()

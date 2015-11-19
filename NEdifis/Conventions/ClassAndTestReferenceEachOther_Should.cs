@@ -6,22 +6,22 @@ namespace NEdifis.Conventions
 {
     [TestFixtureFor(typeof(ClassAndTestReferenceEachOther))]
     // ReSharper disable once InconsistentNaming
-    class ClassAndTestReferenceEachOther_Should
+    internal class ClassAndTestReferenceEachOther_Should
     {
         // ReSharper disable once InconsistentNaming
-        class Inner01 { }
+        private class Inner01 { }
 
         // ReSharper disable once InconsistentNaming
         [TestFixtureFor(typeof(Inner01))]
-        class Inner01_Should { }
+        private class Inner01_Should { }
 
         // ReSharper disable once InconsistentNaming
         [TestFixtureFor(typeof(Inner03))]
-        class Inner02_Should { }
+        private class Inner02_Should { }
 
         // ReSharper disable once InconsistentNaming
         [TestedBy(typeof(Inner01_Should))]
-        class Inner03 { }
+        private class Inner03 { }
 
         [Test]
         public void Be_Creatable()
