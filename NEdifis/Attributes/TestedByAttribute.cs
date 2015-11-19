@@ -9,11 +9,11 @@ namespace NEdifis.Attributes
     [TestedBy(typeof(TestedByAttribute_Should))]
     public class TestedByAttribute : Attribute
     {
-        public TestedByAttribute(Type testClass)
+        public TestedByAttribute(Type fixture)
         {
-            TestClass = testClass;
+            Fixture = fixture;
         }
 
-        public Type TestClass { get; private set; }
+        public Type Fixture { get; private set; }
     }
 }

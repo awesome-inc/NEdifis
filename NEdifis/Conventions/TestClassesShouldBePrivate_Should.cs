@@ -12,10 +12,7 @@ namespace NEdifis.Conventions
         public void Be_Creatable()
         {
             var sut = new TestClassesShouldBePrivate();
-            sut.Should().NotBeNull();
-            sut.HintOnFail.Should().NotBeNullOrWhiteSpace();
-
-            sut.FulfilsConvention(typeof(TestClassesShouldBePrivate_Should)).Should().Be(true);
+            sut.Verify(typeof(TestClassesShouldBePrivate_Should));
         }
 
         [Test, Issue("#6", Title = "convention implementations are private")]

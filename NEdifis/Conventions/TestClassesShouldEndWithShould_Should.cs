@@ -19,12 +19,10 @@ namespace NEdifis.Conventions
         public void Be_Creatable()
         {
             var sut = new TestClassesShouldEndWithShould();
-            sut.Should().NotBeNull();
-            sut.HintOnFail.Should().NotBeNullOrWhiteSpace();
 
-            sut.FulfilsConvention(typeof(TestClassesShouldEndWithShould)).Should().Be(true);
-            sut.FulfilsConvention(typeof(I_Am_A_Test_WithoutShould)).Should().Be(false);
-            sut.FulfilsConvention(typeof(Am_A_Should_Without_TestFixtureFor_Should)).Should().Be(false);
+            sut.Verify(typeof(TestClassesShouldEndWithShould));
+            sut.Invoking(x => x.Verify(typeof(I_Am_A_Test_WithoutShould))).ShouldThrow<AssertionException>();
+            sut.Invoking(x => x.Verify(typeof(Am_A_Should_Without_TestFixtureFor_Should))).ShouldThrow<AssertionException>();
         }
 
         [Test, Issue("#6", Title = "convention implementations are private")]

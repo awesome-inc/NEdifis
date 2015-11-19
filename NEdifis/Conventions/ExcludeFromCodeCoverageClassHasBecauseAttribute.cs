@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using FluentAssertions;
 using NEdifis.Attributes;
 
 namespace NEdifis.Conventions
@@ -9,25 +10,14 @@ namespace NEdifis.Conventions
     public class ExcludeFromCodeCoverageClassHasBecauseAttribute
         : IVerifyConvention
     {
-        public string HintOnFail
+        public Func<Type, bool> Filter { get; } =
+            type => type.GetCustomAttribute<ExcludeFromCodeCoverageAttribute>(false) != null;
+
+        public void Verify(Type type)
         {
-            get
-            {
-                return "~a class with an ExcludeFromCodeCoverage attribute requires a Because attribute~";
-            }
-        }
-
-        public bool FulfilsConvention(Type t)
-        {
-            var efccAttribute = t.GetCustomAttribute<ExcludeFromCodeCoverageAttribute>(false);
-            if (efccAttribute == null) return true;
-
-            var becauseAttribute = t.GetCustomAttribute<BecauseAttribute>();
-            if (becauseAttribute == null) return false;
-
-            if (string.IsNullOrWhiteSpace(becauseAttribute.Reason)) return false;
-
-            return true;
+            var becauseAttribute = type.GetCustomAttribute<BecauseAttribute>();
+            becauseAttribute.Should().NotBeNull();
+            becauseAttribute.Reason.Should().NotBeNullOrWhiteSpace();
         }
     }
 }

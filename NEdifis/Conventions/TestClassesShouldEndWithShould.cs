@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using FluentAssertions;
 using NEdifis.Attributes;
 
 namespace NEdifis.Conventions
@@ -7,20 +8,20 @@ namespace NEdifis.Conventions
     [TestedBy(typeof(TestClassesShouldEndWithShould_Should))]
     public class TestClassesShouldEndWithShould : IVerifyConvention
     {
-        public string HintOnFail
-        {
-            get { return "Test classes should end with '_Should' and should have a 'TestFixtureFor' attribute"; }
-        }
+        public Func<Type, bool> Filter { get; } =
+            type => type.Name.EndsWith("_Should") || type.GetCustomAttribute<TestFixtureForAttribute>() != null;
 
-        public bool FulfilsConvention(Type t)
+        public void Verify(Type t)
         {
             if (t.Name.EndsWith("_Should"))
-                return t.GetCustomAttribute<TestFixtureForAttribute>(true) != null;
+            {
+                t.Should().BeDecoratedWith<TestFixtureForAttribute>();
+                return;
+            }
 
-            if (t.GetCustomAttribute<TestFixtureForAttribute>(true) != null)
-                return t.Name.EndsWith("_Should");
-
-            return true;
+            var a = t.GetCustomAttribute<TestFixtureForAttribute>();
+            if (a != null)
+                t.Name.Should().EndWith("_Should");
         }
     }
 }

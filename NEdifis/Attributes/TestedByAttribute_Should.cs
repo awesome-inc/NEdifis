@@ -12,7 +12,7 @@ namespace NEdifis.Attributes
         {
             var sut = new TestedByAttribute(typeof(object));
 
-            sut.TestClass.Should().Be<object>();
+            sut.Fixture.Should().Be<object>();
         }
     }
 }

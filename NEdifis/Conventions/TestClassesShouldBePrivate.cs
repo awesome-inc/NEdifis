@@ -1,4 +1,5 @@
 ﻿using System;
+using FluentAssertions;
 using NEdifis.Attributes;
 
 namespace NEdifis.Conventions
@@ -6,16 +7,11 @@ namespace NEdifis.Conventions
     [TestedBy(typeof(TestClassesShouldBePrivate_Should))]
     public class TestClassesShouldBePrivate : IVerifyConvention
     {
-        public string HintOnFail
-        {
-            get { return "~all test classes should be private~"; }
-        }
+        public Func<Type, bool> Filter { get; set; } = type => type.Name.EndsWith("_Should");
 
-        public bool FulfilsConvention(Type t)
+        public void Verify(Type t)
         {
-            if (!t.Name.EndsWith("_Should")) return true;
-
-            return !t.IsPublic;
+            t.IsPublic.Should().BeFalse();
         }
     }
 }

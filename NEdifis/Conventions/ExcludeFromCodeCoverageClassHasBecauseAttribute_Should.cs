@@ -22,11 +22,9 @@ namespace NEdifis.Conventions
         public void Be_Creatable()
         {
             var sut = new ExcludeFromCodeCoverageClassHasBecauseAttribute();
-            sut.Should().NotBeNull();
-            sut.HintOnFail.Should().NotBeNullOrWhiteSpace();
 
-            sut.FulfilsConvention(typeof(Excluded_From_Code_Without_Because)).Should().Be(false);
-            sut.FulfilsConvention(typeof(Excluded_From_Code_With_Because)).Should().Be(true);
+            sut.Verify(typeof(Excluded_From_Code_With_Because));
+            sut.Invoking(x => x.Verify(typeof(Excluded_From_Code_Without_Because))).ShouldThrow<AssertionException>();
         }
 
         [Test, Issue("#6", Title = "convention implementations are private")]
