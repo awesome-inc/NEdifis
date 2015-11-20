@@ -18,18 +18,22 @@ namespace NEdifis.Conventions
                 VerifyClass(type);
         }
 
-        private static void VerifyClass(MemberInfo type)
+        private static void VerifyClass(Type expected)
         {
-            var fixture = type.GetCustomAttribute<TestedByAttribute>().Fixture;
-            var classToTest = fixture.GetCustomAttribute<TestFixtureForAttribute>().ClassToTest;
-            type.Should().Be(classToTest);
+            var fixture = expected.GetCustomAttribute<TestedByAttribute>()?.Fixture;
+            fixture.Should().NotBeNull($"'{expected}' should be decorated with '{nameof(TestedByAttribute)}'.");
+            var actual = fixture.GetCustomAttribute<TestFixtureForAttribute>()?.ClassToTest;
+            actual.Should().NotBeNull($"'{fixture}' should be decorated with '{nameof(TestFixtureForAttribute)}'.");
+            actual.Should().Be(expected, "class and fixture should reference each other");
         }
 
-        private static void VerifyTestClass(MemberInfo type)
+        private static void VerifyTestClass(Type expected)
         {
-            var classToTest = type.GetCustomAttribute<TestFixtureForAttribute>().ClassToTest;
-            var fixture = classToTest.GetCustomAttribute<TestedByAttribute>().Fixture;
-            type.Should().Be(fixture);
+            var classToTest = expected.GetCustomAttribute<TestFixtureForAttribute>()?.ClassToTest;
+            classToTest.Should().NotBeNull($"'{expected}' should be decorated with '{nameof(TestFixtureForAttribute)}'.");
+            var actual = classToTest.GetCustomAttribute<TestedByAttribute>()?.Fixture;
+            actual.Should().NotBeNull($"'{classToTest}' should be decorated with '{nameof(TestedByAttribute)}'.");
+            actual.Should().Be(expected, "class and fixture should reference each other");
         }
     }
 }

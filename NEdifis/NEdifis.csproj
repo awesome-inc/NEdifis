@@ -64,6 +64,11 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Conventions\ConventionException.cs" />
+    <Compile Include="Conventions\ConventionException_Should.cs" />
+    <Compile Include="Conventions\ConventionsExtensions.cs" />
+    <Compile Include="Conventions\ConventionsExtensions_Should.cs" />
+    <Compile Include="Conventions\NedifisConventions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Attributes\BecauseAttribute.cs" />
     <Compile Include="Attributes\BecauseAttribute_Should.cs" />
@@ -75,7 +80,6 @@
     <Compile Include="Attributes\TestFixtureForAttribute.cs" />
     <Compile Include="Attributes\TestFixtureForAttribute_Should.cs" />
     <Compile Include="Attributes\IssueAttribute_Should.cs" />
-    <Compile Include="CheckConventions.cs" />
     <Compile Include="ContextFor.cs" />
     <Compile Include="ContextFor_Should.cs" />
     <Compile Include="Conventions\ConventionBase.cs" />

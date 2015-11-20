@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using FluentAssertions;
 using NEdifis.Attributes;
 using NSubstitute;
@@ -14,31 +13,30 @@ namespace NEdifis.Conventions
         [Test]
         public void Return_Valid_Classes()
         {
-            var sut = new ConventionBaseImpl();
-            var cls = sut.AllClasses();
-            cls.Should().Contain(o => (Type)((object[])o)[0] == typeof(BecauseAttribute));
-            cls.Should().NotContain(o => (Type)((object[])o)[0] == typeof(ConventionBaseImpl));
+            var types = ConventionBase.ClassesToTestFor<ConventionBase_Should>().ToArray();
+            types.Should().Contain(typeof(BecauseAttribute));
+            types.Should().NotContain(typeof(ConventionBase));
         }
 
         [Test]
-        public void Use_convention_filter()
+        public void Support_customizing_conventions()
         {
-            var convention = Substitute.For<IVerifyConvention>();
-            convention.Filter.Returns(type => type == typeof(string));
-            convention.When(x => x.Verify(typeof(string))).Do(x => { throw new AssertionException("test");});
+            var convention1 = Substitute.For<IVerifyConvention>();
+            var sut = new TestConvention(convention1);
 
-            var sut = new ConventionBaseImpl(convention);
-            sut.Invoking(x => x.Check(typeof(string))).ShouldThrow<AssertionException>();
-            sut.Check(typeof(int));
-            var temp = convention.Received(2).Filter;
+            var convention2 = Substitute.For<IVerifyConvention>();
+            sut.Conventions.Add(convention2);
+
+            sut.Conventions.Should().ContainInOrder(convention1, convention2);
+            sut.Conventions.Should().ContainSingle(c => c.GetType() == typeof(AllClassesNeedATest));
         }
 
-        private class ConventionBaseImpl : ConventionBase
+
+        private class TestConvention : ConventionBase
         {
-            public ConventionBaseImpl(params IVerifyConvention[] conventions)
+            public TestConvention(params IVerifyConvention[] conventions) : base(conventions)
             {
-                if (conventions != null && conventions.Any())
-                    Conventions.AddRange(conventions);
+                Conventions.Add(new AllClassesNeedATest());
             }
         }
     }

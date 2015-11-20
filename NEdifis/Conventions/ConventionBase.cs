@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
-using FluentAssertions;
 using NEdifis.Attributes;
 using NUnit.Framework;
 
@@ -13,66 +11,46 @@ namespace NEdifis.Conventions
 {
     [TestFixture]
     [TestedBy(typeof(ConventionBase_Should))]
-    public abstract class ConventionBase
+    public class ConventionBase
     {
-        private readonly Assembly _assembly;
-        protected readonly List<IVerifyConvention> Conventions = new List<IVerifyConvention>();
+        public List<IVerifyConvention> Conventions { get; } = new List<IVerifyConvention>();
 
-        protected ConventionBase()
+        public ConventionBase(params IVerifyConvention[] conventions)
         {
-            _assembly = GetType().Assembly;
+            if (conventions != null) Conventions.AddRange(conventions);
         }
 
-        public object[] AllClasses()
+        public static IEnumerable<Type> ClassesToTestFor<TFixture>(Func<Type, bool> pattern = null) 
         {
-            // ReSharper disable once CoVariantArrayConversion
-            return _assembly
-                .GetTypes()
-                .Where(t => !typeof(ConventionBase).IsAssignableFrom(t) &&
-                            !t.GetCustomAttributes<ExcludeFromConventionsAttribute>(true).Any() &&
-                            !t.IsInterface &&
-                            !IsCompilerGenerated(t) &&
-                            !t.IsNested)
-                .Select(t => new object[] { t })
-                .ToArray();
+            return typeof(TFixture).Assembly.GetTypes()
+                .Where(pattern ?? DefaultClassPattern);
         }
 
-        private static bool IsCompilerGenerated(Type type)
+        public static IEnumerable<IVerifyConvention> ConventionsFor<TConvention>(Func<Type, bool> pattern = null)
         {
-            var hasCompilerGeneratedAttribute = type.GetCustomAttributes(
-                typeof(CompilerGeneratedAttribute),
-                false).Any();
-            var hasGeneratedCodeAttribute = type.GetCustomAttributes(typeof(GeneratedCodeAttribute), false).Any();
+            return typeof(TConvention).Assembly.GetTypes()
+                .Where(pattern ?? DefaultConventionPattern)
+                .Select(t => (IVerifyConvention)Activator.CreateInstance(t)); // <-- how to impose new() constraint ?
+        }
 
+        private static readonly Func<Type, bool> DefaultClassPattern = t => 
+            !typeof(ConventionBase).IsAssignableFrom(t) &&
+                !t.GetCustomAttributes<ExcludeFromConventionsAttribute>(true).Any() &&
+                !t.IsInterface &&
+                !IsGenerated(t) &&
+                !t.IsNested;
+
+        private static readonly Func<Type, bool> DefaultConventionPattern = t =>
+            typeof(IVerifyConvention).IsAssignableFrom(t) &&
+                !t.IsInterface &&
+                !IsGenerated(t) &&
+                !t.IsNested;
+
+        private static bool IsGenerated(MemberInfo type)
+        {
+            var hasCompilerGeneratedAttribute = type.GetCustomAttributes<CompilerGeneratedAttribute>(false).Any();
+            var hasGeneratedCodeAttribute = type.GetCustomAttributes<GeneratedCodeAttribute>(false).Any();
             return hasCompilerGeneratedAttribute || hasGeneratedCodeAttribute;
-        }
-
-        [OneTimeSetUp]
-        protected virtual void Configure() { }
-
-        [Test]
-        [TestCaseSource(nameof(AllClasses))]
-        public void Check(Type cls)
-        {
-            var failMessage = new StringBuilder();
-            var hasAtLeastOneIssue = false;
-
-            foreach (var convention in Conventions)
-            {
-                try
-                {
-                    var filter = convention.Filter;
-                    if (filter == null || filter(cls))
-                        convention.Verify(cls);
-                }
-                catch (Exception ex)
-                {
-                    failMessage.Append(ex);
-                    hasAtLeastOneIssue = true;
-                }
-            }
-
-            hasAtLeastOneIssue.Should().BeFalse(failMessage.ToString());
         }
     }
 }
