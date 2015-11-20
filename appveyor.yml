@@ -13,13 +13,13 @@
   environment:
     apiKey:
       secure: 2ZZXSRRBupkaRGRnD1zefkkjmURoXN+QzdeutbdwckTXmmPpe7jmr6HQpgm0R2C4
-   before_build:
+  before_build:
     - ps: gitversion /l console /output buildserver
     - nuget setapikey %apiKey% -Verbosity quiet
   build_script:
-  - build.bat NEdifis.sln /t:Test;Deploy /v:m
+    - build.bat NEdifis\NEdifis.csproj /t:Test;Deploy /v:m
 #  after_build:
-#  - ps: >-
+#    - ps: >-
 #      $wc = New-Object 'System.Net.WebClient'
 #    
 #      $wc.UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\testresults\NEdifis.Tests.xml))
@@ -36,7 +36,7 @@
   before_build:
     - ps: gitversion /l console /output buildserver
   build_script:
-  - build.bat NEdifis\NEdifis.csproj /t:Test;Package /v:m
+    - build.bat NEdifis\NEdifis.csproj /t:Test;Package /v:m
  # after_build:
  # - ps: >-
  #     $wc = New-Object 'System.Net.WebClient'
