@@ -77,8 +77,8 @@ The ticket attribute is used to add the ticket and a description to a test, espe
 if it is a fix for a reported issue. A ticket attribute can be used multiple times.
 
     [TestFixtureFor(typeof(TicketAttribute))]
-    [Ticket(4, Title = "Create an attribute to assign a ticket id")]
-    [Ticket(13, Title = "a test should resolve or be related to multiple tickets")]
+    [Ticket("#4", Title = "Create an attribute to assign a ticket id")]
+    [Ticket("#13", Title = "a test should resolve or be related to multiple tickets")]
     // ReSharper disable once InconsistentNaming
     class TicketAttribute_Should
     {
@@ -87,7 +87,7 @@ if it is a fix for a reported issue. A ticket attribute can be used multiple tim
 ### `TestFixtureFor` and `TestedBy`
 
 The TestFixtureFor (which inherits from TestFixture) and TestedBy are symetric to glue the test and 
-the class.
+the class together.
 
     [TestedBy(typeof(TicketAttribute_Should))]
     public class TicketAttribute : Attribute
@@ -105,26 +105,30 @@ has a TestFixtureFor.
 
 ## Convention Tests
 
-Convention tests are useful to make sure your classes and unit tests fulfils a coding convention. These conventions can be a simple naming convention or a requirement that if you use `ExcludeCodeFromCoverage` you must provide a `Because`.
+Convention tests are useful to make sure your classes and unit tests fulfils a coding convention. 
+These conventions can be a simple naming convention or a requirement that if you use `ExcludeCodeFromCoverage` you must provide a `Because`.
 
     class CheckConventions : ConventionBase
     {
-        protected override void Configure()
+        public CheckConventions()
         {
-            Conventions.Add(new ExcludeFromCodeCoverageClassHasBecauseAttribute());
-            Conventions.Add(new AllClassesNeedATest());
-            Conventions.Add(new ClassAndTestReferenceEachOther());
-            Conventions.Add(new TestClassesShouldEndWithShould());
-            Conventions.Add(new TestClassesShouldBePrivate());
+            Conventions.AddRange(new IVerifyConvention[]
+            {
+                new ExcludeFromCodeCoverageClassHasBecauseAttribute(),
+                new AllClassesNeedATest(),
+                new ClassAndTestReferenceEachOther(),
+                new TestClassesShouldEndWithShould(),
+                new TestClassesShouldBePrivate()
+            });
         }
     }
 
-You can create your own conventions implementing the `IVerifyConvention` Interface and adding the test to you `CheckConventions` Class.
+You can create your own conventions implementing the `IVerifyConvention` Interface and adding the test to your `CheckConventions` Class.
 
     public interface IVerifyConvention
     {
-        string HintOnFail { get; }
-        bool FulfilsConvention(Type t);
+        Func<Type, bool> Filter { get; } 
+        void Verify(Type type);
     }
 
 
