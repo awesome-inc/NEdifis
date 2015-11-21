@@ -22,7 +22,8 @@ namespace NEdifis.Conventions
         public void Support_customizing_conventions()
         {
             var convention1 = Substitute.For<IVerifyConvention>();
-            var sut = new TestConvention(convention1);
+            var sut = new TestConvention();
+            sut.Conventions.Add(convention1);
 
             var convention2 = Substitute.For<IVerifyConvention>();
             sut.Conventions.Add(convention2);
@@ -34,7 +35,7 @@ namespace NEdifis.Conventions
 
         private class TestConvention : ConventionBase
         {
-            public TestConvention(params IVerifyConvention[] conventions) : base(conventions)
+            public TestConvention()
             {
                 Conventions.Add(new AllClassesNeedATest());
             }

@@ -15,11 +15,6 @@ namespace NEdifis.Conventions
     {
         public List<IVerifyConvention> Conventions { get; } = new List<IVerifyConvention>();
 
-        public ConventionBase(params IVerifyConvention[] conventions)
-        {
-            if (conventions != null) Conventions.AddRange(conventions);
-        }
-
         public static IEnumerable<Type> ClassesToTestFor<TFixture>(Func<Type, bool> pattern = null) 
         {
             return typeof(TFixture).Assembly.GetTypes()
