@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using FluentAssertions;
 using NEdifis.Attributes;
 
 namespace NEdifis.Conventions
@@ -7,39 +8,32 @@ namespace NEdifis.Conventions
     [TestedBy(typeof(ClassAndTestReferenceEachOther_Should))]
     public class ClassAndTestReferenceEachOther : IVerifyConvention
     {
-        public string HintOnFail
+        public Func<Type, bool> Filter { get; }
+
+        public void Verify(Type type)
         {
-            get { return "~A class and the test class must reference each other using 'TestedBy' and 'TestFixtureFor' attribute~"; }
+            if (type.Name.EndsWith("_Should"))
+                VerifyTestClass(type);
+            else
+                VerifyClass(type);
         }
 
-        public bool FulfilsConvention(Type t)
+        private static void VerifyClass(Type expected)
         {
-            if (t.Name.EndsWith("_Should"))
-                return VerifyTestClass(t);
-
-            return VerifyClass(t);
+            var fixture = expected.GetCustomAttribute<TestedByAttribute>()?.Fixture;
+            fixture.Should().NotBeNull($"'{expected}' should be decorated with '{nameof(TestedByAttribute)}'.");
+            var actual = fixture.GetCustomAttribute<TestFixtureForAttribute>()?.ClassToTest;
+            actual.Should().NotBeNull($"'{fixture}' should be decorated with '{nameof(TestFixtureForAttribute)}'.");
+            actual.Should().Be(expected, "class and fixture should reference each other");
         }
 
-        public bool VerifyClass(MemberInfo t)
+        private static void VerifyTestClass(Type expected)
         {
-            var tbAttribute = t.GetCustomAttribute<TestedByAttribute>();
-            if (tbAttribute == null) return false;
-
-            var tffAttribute = tbAttribute.TestClass.GetCustomAttribute<TestFixtureForAttribute>();
-            if (tffAttribute == null) return false;
-
-            return t == tffAttribute.TestClass;
-        }
-
-        private static bool VerifyTestClass(MemberInfo t)
-        {
-            var tffAttribute = t.GetCustomAttribute<TestFixtureForAttribute>();
-            if (tffAttribute == null) return false;
-
-            var tbAttribute = tffAttribute.TestClass.GetCustomAttribute<TestedByAttribute>();
-            if (tbAttribute == null) return false;
-
-            return t == tbAttribute.TestClass;
+            var classToTest = expected.GetCustomAttribute<TestFixtureForAttribute>()?.ClassToTest;
+            classToTest.Should().NotBeNull($"'{expected}' should be decorated with '{nameof(TestFixtureForAttribute)}'.");
+            var actual = classToTest.GetCustomAttribute<TestedByAttribute>()?.Fixture;
+            actual.Should().NotBeNull($"'{classToTest}' should be decorated with '{nameof(TestedByAttribute)}'.");
+            actual.Should().Be(expected, "class and fixture should reference each other");
         }
     }
 }

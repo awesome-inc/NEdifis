@@ -7,29 +7,27 @@ namespace NEdifis.Conventions
 {
     [TestFixtureFor(typeof(ExcludeFromCodeCoverageClassHasBecauseAttribute))]
     // ReSharper disable once InconsistentNaming
-    class ExcludeFromCodeCoverageClassHasBecauseAttribute_Should
+    internal class ExcludeFromCodeCoverageClassHasBecauseAttribute_Should
     {
         // ReSharper disable once InconsistentNaming
         [ExcludeFromCodeCoverage]
-        class Excluded_From_Code_Without_Because { }
+        private class Excluded_From_Code_Without_Because { }
 
         [ExcludeFromCodeCoverage]
         [Because("this is a test")]
         // ReSharper disable once InconsistentNaming
-        class Excluded_From_Code_With_Because { }
+        private class Excluded_From_Code_With_Because { }
 
         [Test]
         public void Be_Creatable()
         {
             var sut = new ExcludeFromCodeCoverageClassHasBecauseAttribute();
-            sut.Should().NotBeNull();
-            sut.HintOnFail.Should().NotBeNullOrWhiteSpace();
 
-            sut.FulfilsConvention(typeof(Excluded_From_Code_Without_Because)).Should().Be(false);
-            sut.FulfilsConvention(typeof(Excluded_From_Code_With_Because)).Should().Be(true);
+            sut.Verify(typeof(Excluded_From_Code_With_Because));
+            sut.Invoking(x => x.Verify(typeof(Excluded_From_Code_Without_Because))).ShouldThrow<AssertionException>();
         }
 
-        [Test, Ticket(6, Title = "convention implementations are private")]
+        [Test, Issue("#6", Title = "convention implementations are private")]
         public void Be_Public()
         {
             var sut = new ExcludeFromCodeCoverageClassHasBecauseAttribute();

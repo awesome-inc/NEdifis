@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Xml;
 
 namespace NEdifis.Conventions
 {
     public interface IVerifyConvention
     {
-        string HintOnFail { get; }
-        bool FulfilsConvention(Type t);
+        Func<Type, bool> Filter { get; } 
+        void Verify(Type type);
     }
 }

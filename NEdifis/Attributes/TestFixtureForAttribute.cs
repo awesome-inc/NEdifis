@@ -10,11 +10,11 @@ namespace NEdifis.Attributes
     [TestedBy(typeof(TestFixtureForAttribute_Should))]
     public class TestFixtureForAttribute : TestFixtureAttribute
     {
-        public TestFixtureForAttribute(Type testClass)
+        public TestFixtureForAttribute(Type classToTest)
         {
-            TestClass = testClass;
+            ClassToTest = classToTest;
         }
 
-        public Type TestClass { get; private set; }
+        public Type ClassToTest { get; private set; }
     }
 }
