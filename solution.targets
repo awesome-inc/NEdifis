@@ -1,18 +1,47 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <PropertyGroup>
-    <PackageVersion>0.4.2.$(Build)</PackageVersion>
-  </PropertyGroup>
-
 <ItemGroup>
   <Compile Include="$(SolutionDir)SolutionInfo.cs">
     <Link>Properties\SolutionInfo.cs</Link>
   </Compile>
-  <Compile Include="$(SolutionDir)VersionInfo.g.cs">
-    <Link>Properties\VersionInfo.g.cs</Link>
-  </Compile>
 </ItemGroup>
+
+<PropertyGroup>  
+  <NUnitPath>$(SolutionDir)packages\NUnit.Console.*\tools\nunit3-console.exe</NUnitPath>
+  <NunitArgs>/trace=$(TestVerbosity)</NunitArgs>
+</PropertyGroup>
   
+<Target Name="TestWithNunit"
+        DependsOnTargets="PrepareTests;SelectNUnitConsole">
+
+  <Exec WorkingDirectory="$(OutDir)"
+        Command="&quot;@(NUnitConsole->'%(FullPath)')&quot; $(NunitArgs) @(TestAssemblies, ' ')" />
+  
+  <Move SourceFiles="$(OutDir)\TestResult.xml" DestinationFiles="$(TestResults)"/>
+</Target>
+  
+<Target Name="OpenCoverWithNUnit"
+        DependsOnTargets="PrepareTests;SelectNUnitConsole;SelectOpenCoverConsole">
+  <PropertyGroup>
+    <!-- Skip register profiler per user if run by System account -->
+    <RegisterProfiler Condition="!$(USERPROFILE.EndsWith('systemprofile'))">-register:user</RegisterProfiler>
+    <RegisterProfiler Condition="$(USERPROFILE.EndsWith('systemprofile'))">-register</RegisterProfiler>
+    <ReturnTargetCode Condition="'$(CoverageFailOnTargetFail)' == 'true'">-returntargetcode</ReturnTargetCode>
+    <OpenCoverArgs>$(RegisterProfiler) -filter:&quot;$(OpenCoverFilter)&quot; -output:&quot;$(OpenCoverOutput)&quot; -nodefaultfilters -mergebyhash -skipautoprops $(ReturnTargetCode) -excludebyattribute:&quot;$(OpenCoverExcludeAttributes)&quot; -excludebyfile:&quot;$(OpenCoverExcludeFiles)&quot; -log:$(CoverageVerbosity)</OpenCoverArgs>
+  </PropertyGroup>
+  
+  <Message Condition="'@(TestAssemblies)' == ''"
+       Text="Skipping target since no test assemblies to cover" />
+  <Exec Condition="'@(TestAssemblies)' != ''"
+        WorkingDirectory="$(OutDir)"
+        IgnoreStandardErrorWarningFormat="true"
+        Command="&quot;@(OpenCoverConsole->'%(FullPath)')&quot; $(OpenCoverArgs) -target:&quot;@(NUnitConsole->'%(FullPath)')&quot; -targetdir:. -targetargs:&quot;$(NunitArgs) @(TestAssemblies, ' ')&quot;" />
+
+  <Move SourceFiles="$(OutDir)\TestResult.xml" DestinationFiles="$(TestResults)"/>
+
+</Target>
+
+
 
 </Project>

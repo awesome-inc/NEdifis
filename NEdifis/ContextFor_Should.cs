@@ -6,17 +6,11 @@ using NEdifis.Attributes;
 using NSubstitute;
 using NUnit.Framework;
 
-// ReSharper disable ClassNeverInstantiated.Local
-// ReSharper disable ClassNeverInstantiated.Global
-// ReSharper disable InconsistentNaming
-// ReSharper disable MemberCanBePrivate.Local
-// ReSharper disable UnusedMember.Local
-// ReSharper disable UnusedParameter.Local
-// ReSharper disable UnusedAutoPropertyAccessor.Local
 namespace NEdifis
 {
     [TestFixtureFor(typeof(ContextFor<>))]
-    class ContextFor_Should
+    // ReSharper disable InconsistentNaming
+    internal class ContextFor_Should
     {
         [TestFixture]
         public class ContextFor_Cannot
@@ -38,6 +32,10 @@ namespace NEdifis
 
         #region test classes
 
+        // ReSharper disable UnusedMember.Local
+        // ReSharper disable ClassNeverInstantiated.Local
+        // ReSharper disable UnusedAutoPropertyAccessor.Local
+        // ReSharper disable UnusedParameter.Local
         private class Class_Without_Constructor { }
 
         private class Class_With_One_Empty_Constructor
@@ -48,7 +46,7 @@ namespace NEdifis
 
         private class Class_With_One_Constructor_Parameter
         {
-            public IList<string> Param1 { get; private set; }
+            public IList<string> Param1 { get; }
 
             public Class_With_One_Constructor_Parameter(IList<string> param1)
             {
@@ -75,7 +73,7 @@ namespace NEdifis
 
         private class Class_With_Optional_Constructor_Parameter
         {
-            public ICloneable Cloneable { get; set; }
+            public ICloneable Cloneable { get; }
 
             public Class_With_Optional_Constructor_Parameter(IList<string> param1, ICloneable cloneable = null)
             {
@@ -85,8 +83,8 @@ namespace NEdifis
 
         private class Class_With_Two_Similar_Constructor_Parameter
         {
-            public IList<string> Param1 { get; private set; }
-            public IList<string> Param2 { get; private set; }
+            public IList<string> Param1 { get; }
+            public IList<string> Param2 { get; }
 
             public Class_With_Two_Similar_Constructor_Parameter(IList<string> param1, IList<string> param2)
             {
@@ -97,8 +95,8 @@ namespace NEdifis
 
         private class Class_With_Two_Constructors
         {
-            public IList<string> Param1 { get; set; }
-            public IList<string> Param2 { get; set; }
+            public IList<string> Param1 { get; }
+            public IList<string> Param2 { get; }
 
             public Class_With_Two_Constructors(IList<string> param1)
             {
@@ -112,6 +110,22 @@ namespace NEdifis
                 Param2 = param2;
             }
         }
+
+        private class Class_With_Primitive_Constructor_Parameters
+        {
+            public string Name { get; }
+            public int Age { get; }
+
+            public Class_With_Primitive_Constructor_Parameters(string name, int age)
+            {
+                Name = name;
+                Age = age;
+            }
+        }
+        // ReSharper restore once UnusedMember.Local
+        // ReSharper restore ClassNeverInstantiated.Local
+        // ReSharper restore UnusedAutoPropertyAccessor.Local
+        // ReSharper restore UnusedParameter.Local
 
         #endregion
 
@@ -261,7 +275,7 @@ namespace NEdifis
         }
 
         [Test]
-        public void Replace_Instance()
+        public void Use_Instances()
         {
             var ctx = new ContextFor<Class_With_Optional_Constructor_Parameter>();
 
@@ -278,6 +292,25 @@ namespace NEdifis
             // get a keynotfound exception if wrong parameter
             ctx.Invoking(c => c.Use("I am not a constructor parameter"))
                 .ShouldThrow<KeyNotFoundException>();
+        }
+
+        [Test(Description = "test also primitives, not only substitutes")]
+        public void Support_primitive_instances()
+        {
+            var ctx = new ContextFor<Class_With_Primitive_Constructor_Parameters>();
+            var sut = ctx.BuildSut();
+            sut.Should().NotBeNull();
+
+            sut.Name.Should().Be(default(string));
+            sut.Age.Should().Be(default(int));
+
+            ctx.Use("Name");
+            ctx.Use(42);
+
+            sut = ctx.BuildSut();
+            sut.Should().NotBeNull();
+            sut.Name.Should().Be("Name");
+            sut.Age.Should().Be(42);
         }
 
         [Test]

@@ -3,35 +3,42 @@
   branches:
     only:
       - master
+  install:
+    - choco install gitversion.portable -pre -y
+  test: off
+  assembly_info:
+    patch: false
+  nuget:
+    disable_publish_on_pr: true
   environment:
     apiKey:
       secure: 2ZZXSRRBupkaRGRnD1zefkkjmURoXN+QzdeutbdwckTXmmPpe7jmr6HQpgm0R2C4
-  version: 0.4.2.{build}
-  nuget:
-    disable_publish_on_pr: true
-  test: off
+  before_build:
+    - ps: gitversion /l console /output buildserver
+    - nuget setapikey %apiKey% -Verbosity quiet
   build_script:
-  - build.bat NEdifis.sln /t:CoverageReport /v:m
-  after_build:
-  - ps: >-
-      $wc = New-Object 'System.Net.WebClient'
-    
-      $wc.UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\testresults\NEdifis.Tests.xml))
+    - build.bat NEdifis\NEdifis.csproj /t:Test;Deploy /v:m
+#  after_build:
+#    - ps: >-
+#      $wc = New-Object 'System.Net.WebClient'
+#    
+#      $wc.UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\testresults\NEdifis.Tests.xml))
 
-
-      
-  before_deploy:
-  - nuget setapikey %apiKey% -Verbosity quiet
-  deploy_script:
-  - build.bat NEdifis.sln /t:Deploy /v:m
-
-# "fall back" configuration for all other branches
+# all other branches
 - 
-  version: 0.4.2.{build}
+  install:
+    - choco install gitversion.portable -pre -y
   test: off
-  deploy: off
+  assembly_info:
+    patch: false
   nuget:
     disable_publish_on_pr: true
+  before_build:
+    - ps: gitversion /l console /output buildserver
   build_script:
-  - build.bat NEdifis.sln /t:CoverageReport /v:m
-  
+    - build.bat NEdifis\NEdifis.csproj /t:Test;Package /v:m
+ # after_build:
+ # - ps: >-
+ #     $wc = New-Object 'System.Net.WebClient'
+ #   
+ #     $wc.UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\testresults\NEdifis.Tests.xml))

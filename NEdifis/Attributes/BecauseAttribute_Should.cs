@@ -6,7 +6,7 @@ namespace NEdifis.Attributes
 {
     [TestFixtureFor(typeof(BecauseAttribute))]
     // ReSharper disable once InconsistentNaming
-    class BecauseAttribute_Should
+    internal class BecauseAttribute_Should
     {
         [Test]
         public void Be_Creatable()
@@ -15,8 +15,10 @@ namespace NEdifis.Attributes
 
             sut.Reason.Should().Be("because why");
 
+            // ReSharper disable ObjectCreationAsStatement
             true.Invoking(b => new BecauseAttribute(null)).ShouldThrow<ArgumentNullException>();
             true.Invoking(b => new BecauseAttribute(string.Empty)).ShouldThrow<ArgumentException>();
+            // ReSharper restore ObjectCreationAsStatement
         }
     }
 }

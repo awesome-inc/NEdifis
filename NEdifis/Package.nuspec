@@ -10,7 +10,7 @@
     <description>NEdifis, a tool for supporting testing and enforcing naming and testing conventions</description>
     <summary>NEdifis, a tool for supporting testing and enforcing naming and testing conventions</summary>
     <copyright/>
-    <releaseNotes>Revision: 0.1</releaseNotes>
+    <releaseNotes>Revision: $Revision$</releaseNotes>
     <projectUrl>https://github.com/awesome-inc/NEdifis</projectUrl>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System" />
@@ -20,8 +20,8 @@
     </frameworkAssemblies>
     <dependencies>
       <dependency id="FluentAssertions" version="3.3.0"/>
-      <dependency id="NSubstitute" version="1.8.1.0" />
-      <dependency id="NUnit" version="2.6.4"/>
+      <dependency id="NSubstitute" version="1.9.2.0" />
+      <dependency id="NUnit" version="3.0.0"/>
     </dependencies>
   </metadata>
   <files>

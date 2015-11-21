@@ -75,11 +75,17 @@ namespace NEdifis.Diagnostics
                     }
                     break;
 
-                default:
+                case TraceEventType.Verbose:
                     if (ActiveTraceLevel == TraceLevel.Verbose)
                     {
                         _levelMessages[(int)TraceLevel.Verbose].Add(message);
                     }
+                    break;
+                case TraceEventType.Start:
+                case TraceEventType.Stop:
+                case TraceEventType.Suspend:
+                case TraceEventType.Resume:
+                case TraceEventType.Transfer:
                     break;
             }
         }

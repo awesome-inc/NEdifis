@@ -6,28 +6,26 @@ namespace NEdifis.Conventions
 {
     [TestFixtureFor(typeof(TestClassesShouldEndWithShould))]
     // ReSharper disable once InconsistentNaming
-    class TestClassesShouldEndWithShould_Should
+    internal class TestClassesShouldEndWithShould_Should
     {
         [TestFixtureFor(typeof(TestClassesShouldEndWithShould))]
         // ReSharper disable once InconsistentNaming
-        class I_Am_A_Test_WithoutShould { }
+        private class I_Am_A_Test_WithoutShould { }
 
         // ReSharper disable once InconsistentNaming
-        class Am_A_Should_Without_TestFixtureFor_Should { }
+        private class Am_A_Should_Without_TestFixtureFor_Should { }
 
         [Test]
         public void Be_Creatable()
         {
             var sut = new TestClassesShouldEndWithShould();
-            sut.Should().NotBeNull();
-            sut.HintOnFail.Should().NotBeNullOrWhiteSpace();
 
-            sut.FulfilsConvention(typeof(TestClassesShouldEndWithShould)).Should().Be(true);
-            sut.FulfilsConvention(typeof(I_Am_A_Test_WithoutShould)).Should().Be(false);
-            sut.FulfilsConvention(typeof(Am_A_Should_Without_TestFixtureFor_Should)).Should().Be(false);
+            sut.Verify(typeof(TestClassesShouldEndWithShould));
+            sut.Invoking(x => x.Verify(typeof(I_Am_A_Test_WithoutShould))).ShouldThrow<AssertionException>();
+            sut.Invoking(x => x.Verify(typeof(Am_A_Should_Without_TestFixtureFor_Should))).ShouldThrow<AssertionException>();
         }
 
-        [Test, Ticket(6, Title = "convention implementations are private")]
+        [Test, Issue("#6", Title = "convention implementations are private")]
         public void Be_Public()
         {
             var sut = new TestClassesShouldEndWithShould();
