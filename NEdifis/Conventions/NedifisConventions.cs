@@ -19,7 +19,7 @@ namespace NEdifis.Conventions
             Conventions.Check(typeToTest);
         }
 
-        // 2nd way for conventions using 2 ValueSource
+        // 2nd way for conventions using 2 ValueSource (NCrunch does not seem to discover this)
         //private static IEnumerable<IVerifyConvention> ConventionsToCheck { get; } = ConventionsFor<NedifisConventions>();
         //[Test]
         //public void Check(
