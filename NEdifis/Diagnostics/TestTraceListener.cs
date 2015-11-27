@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using NEdifis.Attributes;
 
 namespace NEdifis.Diagnostics
 {
-    [TestedBy(typeof(TestTraceListener_Should))]
     public sealed class TestTraceListener : TraceListener
     {
         #region construct and dispose

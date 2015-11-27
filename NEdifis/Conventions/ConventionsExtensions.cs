@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using NEdifis.Attributes;
 using NUnit.Framework;
 
 namespace NEdifis.Conventions
 {
-    [TestedBy(typeof(ConventionsExtensions_Should))]
     public static class ConventionsExtensions
     {
         public static void Check(this IEnumerable<IVerifyConvention> conventions, Type typeToTest)

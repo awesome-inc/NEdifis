@@ -6,7 +6,6 @@ using NEdifis.Attributes;
 
 namespace NEdifis.Conventions
 {
-    [TestedBy(typeof(ExcludeFromCodeCoverageClassHasBecauseAttribute_Should))]
     public class ExcludeFromCodeCoverageClassHasBecauseAttribute
         : IVerifyConvention
     {

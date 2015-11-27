@@ -10,7 +10,6 @@ using NUnit.Framework;
 namespace NEdifis.Conventions
 {
     [TestFixture]
-    [TestedBy(typeof(ConventionBase_Should))]
     public class ConventionBase
     {
         public List<IVerifyConvention> Conventions { get; } = new List<IVerifyConvention>();
