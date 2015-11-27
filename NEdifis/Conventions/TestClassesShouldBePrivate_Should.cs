@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace NEdifis.Conventions
 {
-    //[TestFixtureFor(typeof(TestClassesShouldBePrivate))]
+    [TestFixtureFor(typeof(TestClassesShouldBePrivate))]
     // ReSharper disable once InconsistentNaming
     internal class TestClassesShouldBePrivate_Should
     {
