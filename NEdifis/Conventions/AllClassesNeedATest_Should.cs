@@ -24,5 +24,15 @@ namespace NEdifis.Conventions
         {
             typeof(AllClassesNeedATest).IsPublic.Should().BeTrue();
         }
+
+        [Test, Issue("#19")]
+        public void Have_Fixture()
+        {
+            var type = typeof(AllClassesNeedATest);
+            var sut = new AllClassesNeedATest();
+            sut.Filter(type).Should().BeTrue();
+            sut.GetFixtureTypeFor(type).Should().Be<AllClassesNeedATest_Should>();
+            sut.VerifyIsFixture(typeof (AllClassesNeedATest_Should));
+        }
     }
 }

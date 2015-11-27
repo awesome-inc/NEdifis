@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using NEdifis.Attributes;
 using NSubstitute;
 
 namespace NEdifis
 {
-    [TestedBy(typeof(ContextFor_Should))]
     public sealed class ContextFor<T>
     {
         private readonly IList<Tuple<string, Type, object>> _ctorParameter = new List<Tuple<string, Type, object>>();

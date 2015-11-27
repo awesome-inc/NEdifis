@@ -6,7 +6,6 @@ namespace NEdifis.Attributes
     /// Attribute to attach a reason to a method, especially if you use attributes
     /// which dont support a reson like ExcludeFromCodeCoverageAttribute
     /// </summary>
-    [TestedBy(typeof(BecauseAttribute_Should))]
     public class BecauseAttribute : Attribute
     {
         public BecauseAttribute(string reason)

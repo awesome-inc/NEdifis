@@ -5,7 +5,6 @@ using NEdifis.Attributes;
 
 namespace NEdifis.Conventions
 {
-    [TestedBy(typeof(TestClassesShouldEndWithShould_Should))]
     public class TestClassesShouldEndWithShould : IVerifyConvention
     {
         public Func<Type, bool> Filter { get; } =
