@@ -1,17 +1,15 @@
 ﻿using System;
 using FluentAssertions;
-using NEdifis.Attributes;
 
 namespace NEdifis.Conventions
 {
-    [TestedBy(typeof(TestClassesShouldBePrivate_Should))]
     public class TestClassesShouldBePrivate : IVerifyConvention
     {
         public Func<Type, bool> Filter { get; set; } = type => type.Name.EndsWith("_Should");
 
-        public void Verify(Type t)
+        public void Verify(Type type)
         {
-            t.IsPublic.Should().BeFalse();
+            type.IsPublic.Should().BeFalse($"test fixtures like '{type}' should not pe public");
         }
     }
 }

@@ -2,7 +2,6 @@
 
 namespace NEdifis.Attributes
 {
-    [TestedBy(typeof(IssueAttribute_Should))]
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
     public class IssueAttribute : Attribute
     {

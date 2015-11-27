@@ -1,5 +1,8 @@
 #Changelog
 
+## 0.5.0
+* NUnit 3
+
 ## 0.4.1
 * Allow multiple ticket attributes. issue #13
 * TestTraceListener made public. issue #16
