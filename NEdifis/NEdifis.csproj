@@ -89,8 +89,8 @@
     <Compile Include="Conventions\IVerifyConvention.cs" />
     <Compile Include="Conventions\TestClassesShouldBePrivate.cs" />
     <Compile Include="Conventions\TestClassesShouldBePrivate_Should.cs" />
-    <Compile Include="Conventions\TestClassesShouldEndWithShould.cs" />
-    <Compile Include="Conventions\TestClassesShouldEndWithShould_Should.cs" />
+    <Compile Include="Conventions\TestClassesShouldMatchClassToTest.cs" />
+    <Compile Include="Conventions\TestClassesShouldMatchClassToTest_Should.cs" />
     <Compile Include="Diagnostics\TestTraceListener.cs" />
     <Compile Include="Diagnostics\TestTraceListener_Should.cs" />
   </ItemGroup>
