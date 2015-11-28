@@ -1,11 +1,13 @@
 ﻿using System;
 using FluentAssertions;
+using FluentAssertions.Common;
+using NUnit.Framework;
 
 namespace NEdifis.Conventions
 {
     public class TestClassesShouldBePrivate : IVerifyConvention
     {
-        public Func<Type, bool> Filter { get; set; } = type => type.Name.EndsWith("_Should");
+        public Func<Type, bool> Filter { get; set; } = type => type.IsDecoratedWith<TestFixtureAttribute>();
 
         public void Verify(Type type)
         {

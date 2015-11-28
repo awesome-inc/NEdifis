@@ -15,7 +15,7 @@ namespace NEdifis.Conventions
             if (p > 0) name = name.Substring(0, p);
 
             var typeName = name + "_Should";
-            var fixtureType = Type.GetType(typeName);
+            var fixtureType = type.Assembly.GetType(typeName);
             fixtureType.Should().NotBeNull($"type '{type}' should have a corresponding test '{typeName}'");
             return fixtureType;
         };
