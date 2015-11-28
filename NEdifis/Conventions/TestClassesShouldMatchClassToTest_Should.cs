@@ -4,11 +4,11 @@ using NUnit.Framework;
 
 namespace NEdifis.Conventions
 {
-    [TestFixtureFor(typeof(TestClassesShouldEndWithShould))]
+    [TestFixtureFor(typeof(TestClassesShouldMatchClassToTest))]
     // ReSharper disable once InconsistentNaming
-    internal class TestClassesShouldEndWithShould_Should
+    internal class TestClassesShouldMatchClassToTest_Should
     {
-        [TestFixtureFor(typeof(TestClassesShouldEndWithShould))]
+        [TestFixtureFor(typeof(TestClassesShouldMatchClassToTest))]
         // ReSharper disable once InconsistentNaming
         private class I_Am_A_Test_WithoutShould { }
 
@@ -18,9 +18,9 @@ namespace NEdifis.Conventions
         [Test]
         public void Be_Creatable()
         {
-            var sut = new TestClassesShouldEndWithShould();
+            var sut = new TestClassesShouldMatchClassToTest();
 
-            sut.Verify(typeof(TestClassesShouldEndWithShould));
+            sut.Verify(typeof(TestClassesShouldMatchClassToTest_Should));
             sut.Invoking(x => x.Verify(typeof(I_Am_A_Test_WithoutShould))).ShouldThrow<AssertionException>();
             sut.Invoking(x => x.Verify(typeof(Am_A_Should_Without_TestFixtureFor_Should))).ShouldThrow<AssertionException>();
         }
@@ -28,7 +28,7 @@ namespace NEdifis.Conventions
         [Test, Issue("#6", Title = "convention implementations are private")]
         public void Be_Public()
         {
-            var sut = new TestClassesShouldEndWithShould();
+            var sut = new TestClassesShouldMatchClassToTest();
             sut.GetType().IsPublic.Should().BeTrue();
         }
     }
