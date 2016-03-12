@@ -1,8 +1,7 @@
+[![Join the chat at https://gitter.im/awesome-inc/NEdifis](https://badges.gitter.im/awesome-inc/NEdifis.svg)](https://gitter.im/awesome-inc/NEdifis?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build status](https://ci.appveyor.com/api/projects/status/tghwql6ktsc9enqw?svg=true)](https://ci.appveyor.com/project/awesome-inc-build/nedifis) ![NuGet Version](https://img.shields.io/nuget/v/NEdifis.svg?style=flat-square) ![NuGet Version](https://img.shields.io/nuget/dt/NEdifis.svg?style=flat-square)
 
 ### Who is Edifis?
-
-[![Join the chat at https://gitter.im/awesome-inc/NEdifis](https://badges.gitter.im/awesome-inc/NEdifis.svg)](https://gitter.im/awesome-inc/NEdifis?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Edifis is "the best architect in Alexandria", which according to Cleopatra is hardly saying much... And we have to 
 admit she's right when we look at the ramshackle structures built by Edifis and wonderfully illustrated 
