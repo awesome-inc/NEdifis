@@ -17,13 +17,7 @@
     - ps: gitversion /l console /output buildserver
     - nuget setapikey %apiKey% -Verbosity quiet
   build_script:
-    - build.bat NEdifis\NEdifis.csproj /t:Test;Deploy /v:m
-#  after_build:
-#    - ps: >-
-#      $wc = New-Object 'System.Net.WebClient'
-#    
-#      $wc.UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\testresults\NEdifis.Tests.xml))
-
+    - build.bat /t:CoverageUpload;Deploy /v:m
 # all other branches
 - 
   install:
@@ -36,9 +30,4 @@
   before_build:
     - ps: gitversion /l console /output buildserver
   build_script:
-    - build.bat NEdifis\NEdifis.csproj /t:Test;Package /v:m
- # after_build:
- # - ps: >-
- #     $wc = New-Object 'System.Net.WebClient'
- #   
- #     $wc.UploadFile("https://ci.appveyor.com/api/testresults/nunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\testresults\NEdifis.Tests.xml))
+    - build.bat /t:CoverageUpload;Package /v:m

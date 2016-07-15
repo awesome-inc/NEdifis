@@ -1,11 +1,12 @@
 using System.Diagnostics;
+using System.Linq;
 using FluentAssertions;
 using NEdifis.Attributes;
 using NUnit.Framework;
 
 namespace NEdifis.Diagnostics
 {
-    [TestFixtureFor(typeof(TestTraceListener))]
+    [TestFixtureFor(typeof (TestTraceListener))]
     // ReSharper disable once InconsistentNaming
     internal class TestTraceListener_Should
     {
@@ -76,6 +77,24 @@ namespace NEdifis.Diagnostics
 #else
                 ttl.MessagesFor(TraceLevel.Verbose).Should().BeEmpty();
 #endif
+            }
+        }
+
+        [Test]
+        public void Support_clearing_messages()
+        {
+            using (var ttl = new TestTraceListener())
+            {
+                Trace.TraceInformation("nice info");
+                ttl.MessagesFor(TraceLevel.Info).Single().Should().Be("nice info");
+
+                ttl.ClearMessagesFor(TraceLevel.Info);
+                ttl.MessagesFor(TraceLevel.Info).Should().BeEmpty();
+
+                Trace.TraceError("not so nice error");
+                ttl.ClearMessages();
+                ttl.MessagesFor(TraceLevel.Error).Should().BeEmpty();
+
             }
         }
     }
