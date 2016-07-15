@@ -1,3 +1,4 @@
+[![Join the chat at https://gitter.im/awesome-inc/NEdifis](https://badges.gitter.im/awesome-inc/NEdifis.svg)](https://gitter.im/awesome-inc/NEdifis?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build status](https://ci.appveyor.com/api/projects/status/tghwql6ktsc9enqw?svg=true)](https://ci.appveyor.com/project/awesome-inc-build/nedifis) ![NuGet Version](https://img.shields.io/nuget/v/NEdifis.svg?style=flat-square) ![NuGet Version](https://img.shields.io/nuget/dt/NEdifis.svg?style=flat-square)
 
 ### Who is Edifis?
@@ -41,7 +42,7 @@ Optional parameter are mocked by default. To avoid a mock for an optional parame
 
 	var ctx = new ContextFor<Class_With_Optional_Constructor_Parameter>(substituteOptionalParameter: false);
 	
-For replacing an entire instance instead of changing the mock behaviour, the `Use<>()` Method can be used.
+For replacing an entire instance instead of changing the mock behavior, the `Use<>()` Method can be used.
 
     var ctx = new ContextFor<Class_With_Optional_Constructor_Parameter>();
 
@@ -51,10 +52,17 @@ For replacing an entire instance instead of changing the mock behaviour, the `Us
 
 	ctx.For<IClonable>().Should().Be(cloneable)
 
+If you need to differentiate between parameters of the same type, add the parameter name. Note that using [nameof()](https://msdn.microsoft.com/en-us/library/dn986596.aspx) comes in handy here and makes the code more robust against name refactorings.
+
+    var ctx = new ContextFor<Class_With_Two_Similar_Constructor_Parameter>();
+
+    var list2 = new List<string>();
+    ctx.Use<IList<string>>(list2, nameof(Class_With_Two_Similar_Constructor_Parameter.Param2));
+   
 
 ## Attributes
 
-The additional attributes helps your tests to tell more about themselfes.
+The additional attributes helps your tests to tell more about themselves.
 
 ### `Because` Attribute
 
@@ -70,45 +78,48 @@ a reason by default like
 The `Because` makes it easier to tell _why_ you have done something. Attribute are easier than 
 inspecting the file history and the attribute can be used for your convention tests (see below).
 
+**Note:** Using the `Because` attribute on a production classes imposes a runtime dependency on `NEdifis` which you 
+might want to avoid (see [NEdifis/issues/19](https://github.com/awesome-inc/NEdifis/issues/19)).
 
-### `Ticket` Attribute
+### `Issue` Attribute
 
-The ticket attribute is used to add the ticket and a description to a test, especially
-if it is a fix for a reported issue. A ticket attribute can be used multiple times.
+The issue attribute is used to add an issue and a description to a test (or fixture), especially
+if it is a fix for a reported issue. An issue attribute can be used multiple times.
 
     [TestFixtureFor(typeof(TicketAttribute))]
-    [Ticket("#4", Title = "Create an attribute to assign a ticket id")]
-    [Ticket("#13", Title = "a test should resolve or be related to multiple tickets")]
+    [Issue("#4", Title = "Create an attribute to assign an issue id")]
+    [Issue("#13", Title = "a test should resolve or be related to multiple issues")]
     // ReSharper disable once InconsistentNaming
-    class TicketAttribute_Should
+    internal class IssueAttribute_Should
     {
     }
 
 ### `TestFixtureFor` and `TestedBy`
 
-The TestFixtureFor (which inherits from TestFixture) and TestedBy are symetric to glue the test and 
-the class together.
+The `TestFixtureFor` (which inherits from [TestFixture](https://github.com/nunit/docs/wiki/TestFixture-Attribute)) and `TestedBy` are pairing to make navigating between class and its fixture even easier.
 
-    [TestedBy(typeof(TicketAttribute_Should))]
-    public class TicketAttribute : Attribute
+    [TestedBy(typeof(IssueAttribute_Should))]
+    public class IssueAttribute : Attribute
     {
 	}
 
-	[TestFixtureFor(typeof(TicketAttribute))]
+	[TestFixtureFor(typeof(IssueAttribute))]
     // ReSharper disable once InconsistentNaming
-    public class TicketAttribute_Should
+    internal class IssueAttribute_Should
     {
 	}
 
-There are convention tests which support a validation if each class has a TestedBy and a test class
-has a TestFixtureFor.
+There are convention tests which support a validation if each class has a `TestedBy` and a test class
+has a `TestFixtureFor`. 
+
+**Note:** Since we advocate for [placing tests right beside production code](https://awesome-incremented.blogspot.de/2015/06/shipping-tests-along-with-production.html), we recommend using only `TestFixtureFor` to avoid a runtime dependency to NEdifis (see [NEdifis/issues/19](https://github.com/awesome-inc/NEdifis/issues/19)).
 
 ## Convention Tests
 
-Convention tests are useful to make sure your classes and unit tests fulfils a coding convention. 
-These conventions can be a simple naming convention or a requirement that if you use `ExcludeCodeFromCoverage` you must provide a `Because`.
+Convention tests are useful to make sure your classes and unit tests do not break your coding conventions. 
+These conventions can be a simple naming convention or requiring to explain why you exclude some class from code coverage, i.e. if you use `ExcludeCodeFromCoverage` you must also provide a `Because`.
 
-    class CheckConventions : ConventionBase
+    internal class CheckConventions : ConventionBase
     {
         public CheckConventions()
         {
@@ -136,8 +147,8 @@ You can create your own conventions implementing the `IVerifyConvention` Interfa
 
 ### `TestTraceListener`
 
-The test trace listener can be used to verify if a method traced something. Sometimes there is a requirement which 
-says "in case an exception is caught, the exception should be logged to a file". The `TestTraceListener` can do this.
+The test trace listener can be used to verify if a method traced something. Sometimes there is a requirement like
+*"in case an exception is caught, the exception should be logged to a file"*. When using [Trace](https://msdn.microsoft.com/en-us/library/system.diagnostics.trace(v=vs.110).aspx), the `TestTraceListener` is an easy way for testing these kinds of requirements. Here is an example:
 
 	using (var ttl = new TestTraceListener())
 	{
@@ -147,8 +158,7 @@ says "in case an exception is caught, the exception should be logged to a file".
 	}
 
 With the dispose pattern, the test trace listener is automatically removed from listeners during dispose. Therefore
-the `using`statement is recommended. For debug redirect and testing you can use the test trace listener because both
-classes [use the same listener collection]("https://msdn.microsoft.com/en-us/library/system.diagnostics.debug.listeners(v=vs.110).aspx").
+the `using` statement is recommended. For debug redirect and testing you can also use the test trace listener because both classes [use the same listener collection]("https://msdn.microsoft.com/en-us/library/system.diagnostics.debug.listeners(v=vs.110).aspx").
 
 	using (var ttl = new TestTraceListener())
 	{
@@ -156,7 +166,3 @@ classes [use the same listener collection]("https://msdn.microsoft.com/en-us/lib
 
 		ttl.MessagesFor(TraceLevel.Verbose).Should().Contain("nice debug");
 	}
-
-
-
-

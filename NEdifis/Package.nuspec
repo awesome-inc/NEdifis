@@ -4,8 +4,9 @@
     <id>NEdifis</id>
     <version>$version$</version>
     <title>NEdifis</title>
-    <authors>tmentzel, mkoertgen</authors>
-    <owners>tmentzel, mkoertgen</owners>
+    <authors>Awesome Incremented and Contributors</authors>
+    <owners>Awesome Incremented and Contributors</owners>
+    <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>NEdifis, a tool for supporting testing and enforcing naming and testing conventions</description>
     <summary>NEdifis, a tool for supporting testing and enforcing naming and testing conventions</summary>
@@ -25,6 +26,6 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\Release\NEdifis.dll" target="lib\net45"/>
+    <file src="bin\Release\NEdifis.*" target="lib\net45"/>
   </files>
 </package>

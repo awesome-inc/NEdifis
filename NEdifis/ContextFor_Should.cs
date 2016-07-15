@@ -19,14 +19,10 @@ namespace NEdifis
             public void Handle_Class_With_Nested_Constructor_Parameter()
             {
                 // because NSubstitute does not support class with constructor parameter
-                new Action(() => Substitute.For<Class_With_One_Constructor_Parameter>())
-                    .Invoking(a => a.Invoke())
-                    .ShouldThrow<Exception>();
+                0.Invoking(x => Substitute.For<Class_With_One_Constructor_Parameter>()).ShouldThrow<Exception>();
 
                 // as long as they are public
-                new Action(() => Substitute.For<Class_With_One_Empty_Constructor>())
-                    .Invoking(a => a.Invoke())
-                    .ShouldThrow<Exception>();
+                1.Invoking(x => Substitute.For<Class_With_One_Empty_Constructor>()).ShouldThrow<Exception>();
             }
         }
 
@@ -143,10 +139,10 @@ namespace NEdifis
             var ctx = new ContextFor<Class_With_One_Constructor_Parameter>();
 
             // on generic
-            new Action(() => ctx.For<IFormattable>()).ShouldThrow<ArgumentException>();
+            ctx.Invoking(x => x.For<IFormattable>()).ShouldThrow<ArgumentException>();
 
             // on named parameter
-            new Action(() => ctx.For<IList<string>>("this_does_not_exist")).ShouldThrow<ArgumentException>();
+            ctx.Invoking(x => x.For<IList<string>>("this_does_not_exist")).ShouldThrow<ArgumentException>();
         }
 
         [Test]
@@ -155,7 +151,7 @@ namespace NEdifis
             var ctx = new ContextFor<Class_With_One_Constructor_Parameter>();
 
             // wrong parameter type
-            new Action(() => ctx.For<IFormattable>("param1")).ShouldThrow<InvalidCastException>();
+            ctx.Invoking(x => x.For<IFormattable>("param1")).ShouldThrow<InvalidCastException>();
         }
 
         [Test]
@@ -239,7 +235,7 @@ namespace NEdifis
             param2a.Should().NotBeNull();
             param2a.Equals(param1a).Should().BeFalse();
 
-            // lets see if the params gut injected properly
+            // lets see if the params got injected properly
             var sut = ctx.BuildSut();
             sut.Should().NotBeNull();
 
@@ -266,7 +262,7 @@ namespace NEdifis
             param2a.Should().NotBeNull();
             param2a.Equals(param1a).Should().BeFalse();
 
-            // lets see if the params gut injected properly
+            // lets see if the params got injected properly
             var sut = ctx.BuildSut();
             sut.Should().NotBeNull();
 
@@ -283,7 +279,7 @@ namespace NEdifis
             var cloneable = Substitute.For<ICloneable>();
             ctx.Use(cloneable);
 
-            // lets see if the params gut injected properly
+            // lets see if the params got injected properly
             var sut = ctx.BuildSut();
             sut.Should().NotBeNull();
 
@@ -291,7 +287,7 @@ namespace NEdifis
 
             // get a keynotfound exception if wrong parameter
             ctx.Invoking(c => c.Use("I am not a constructor parameter"))
-                .ShouldThrow<KeyNotFoundException>();
+                .ShouldThrow<ArgumentException>();
         }
 
         [Test(Description = "test also primitives, not only substitutes")]
@@ -322,7 +318,7 @@ namespace NEdifis
             var param1 = ctx.For<IList<string>>();
             param1.Should().NotBeNull();
 
-            // lets see if the params gut injected properly
+            // lets see if the params got injected properly
             var sut = ctx.BuildSut();
             sut.Should().NotBeNull();
 
@@ -348,12 +344,24 @@ namespace NEdifis
             ctx.Invoking(c => c.For<IList<string>>("param2")).ShouldThrow<ArgumentException>();
             param1a.Should().NotBeNull();
 
-            // lets see if the params gut injected properly
+            // lets see if the params got injected properly
             var sut = ctx.BuildSut();
             sut.Should().NotBeNull();
 
             sut.Param1.Should().Equal(param1a);
             sut.Param2.Should().BeNull();
+        }
+
+        [Test,
+         Issue("https://github.com/awesome-inc/NEdifis/issues/24",
+             Title = "Add option `ctx.Use<T>`(string parameterName)` #24")]
+        public void Support_using_multiple_instances_of_the_same_type()
+        {
+            var ctx = new ContextFor<Class_With_Two_Similar_Constructor_Parameter>();
+            var list1 = new List<string>();
+            var list2 = new List<string>();
+            ctx.Use<IList<string>>(list2, nameof(Class_With_Two_Similar_Constructor_Parameter.Param2));
+            ctx.Use<IList<string>>(list1, nameof(Class_With_Two_Similar_Constructor_Parameter.Param1));
         }
 
     }

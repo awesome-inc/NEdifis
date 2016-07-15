@@ -6,11 +6,14 @@ using NSubstitute;
 
 namespace NEdifis
 {
+    /// <summary>
+    /// A builder for you 'system/class under test'. 
+    /// This effectively reduces test maintenance by leveraging the 'test factory pattern' in a generic, reusable way.
+    /// </summary>
+    /// <typeparam name="T">The type to test.</typeparam>
     public sealed class ContextFor<T>
     {
-        private readonly IList<Tuple<string, Type, object>> _ctorParameter = new List<Tuple<string, Type, object>>();
-
-        #region constructor
+        private readonly IList<ParamInfo> _ctorParameter = new List<ParamInfo>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ContextFor{T}"/> class.
@@ -55,14 +58,62 @@ namespace NEdifis
         }
 
         /// <summary>
-        /// Initializes the ctor parameter with the given constructor info.
+        /// Replace a constructor parameter with another instance.
+        /// </summary>
+        public TK Use<TK>(TK newInstance)
+        {
+            var paramInfo = GetParamInfo<TK>();
+            ReplaceInstance(paramInfo, newInstance);
+            return newInstance;
+        }
+
+        /// <summary>
+        /// Replace a constructor parameter with another instance.
+        /// </summary>
+        public TK Use<TK>(TK newInstance, string parameter)
+        {
+            var paramInfo = GetParamInfo(parameter);
+            ReplaceInstance(paramInfo, newInstance);
+            return newInstance;
+        }
+
+
+        /// <summary>
+        /// Get the substitute for the specified type <typeparamref name="T"/>.
+        /// </summary>
+        public TK For<TK>()
+        {
+            var paramInfo = GetParamInfo<TK>();
+            return (TK)paramInfo.Instance;
+        }
+
+        /// <summary>
+        /// Get the substitute for the specified parameter <paramref name="parameter"/>.
+        /// </summary>
+        public TK For<TK>(string parameter)
+        {
+            var paramInfo = GetParamInfo(parameter);
+            return (TK)paramInfo.Instance;
+        }
+
+        /// <summary>
+        /// Builds an returns instance for the 'system under test (SUT)', i.e. the class to test.
+        /// </summary>
+        public T BuildSut()
+        {
+            return (T)Activator.CreateInstance(typeof(T), _ctorParameter.Select(pi => pi.Instance).ToArray());
+        }
+
+
+        /// <summary>
+        /// Initializes the constructor parameters using the specified <see cref="ConstructorInfo"/>.
         /// </summary>
         private void InitCtorParameterWith(ConstructorInfo ctor, bool substituteOptionalParameter)
         {
             // add each ctor parameter to an internal dictionary
             foreach (var info in ctor.GetParameters())
                 _ctorParameter.Add(
-                    new Tuple<string, Type, object>(
+                    new ParamInfo(
                         info.Name.ToLower(),
                         info.ParameterType,
                         CreateCtorInstance(info, substituteOptionalParameter)
@@ -106,7 +157,7 @@ namespace NEdifis
                 var parameter = ctor
                     .GetParameters()
                     .Select(info =>
-                        new Tuple<string, Type, object>(
+                        new ParamInfo(
                             info.Name.ToLower(),
                             info.ParameterType,
                             (!substituteOptionalParameter && info.DefaultValue == null)
@@ -118,65 +169,50 @@ namespace NEdifis
                                         : CreateInstanceWithSubstitutes(info.ParameterType, substituteOptionalParameter)))
                     .ToList();
 
-                return Activator.CreateInstance(type, parameter.Select(t => t.Item3).ToArray());
+                return Activator.CreateInstance(type, parameter.Select(p => p.Instance).ToArray());
             }
             catch { return null; }
 
         }
 
-        #endregion
-
-        /// <summary>
-        /// replace a constructor parameter with another instance.
-        /// </summary>
-        public TK Use<TK>(TK newInstance)
+        private ParamInfo GetParamInfo<TK>()
         {
-            var tpl = _ctorParameter
-                .FirstOrDefault(tuple => typeof(TK) == tuple.Item2);
-            if (tpl == null)
-                throw new KeyNotFoundException();
-
-            var tplPos = _ctorParameter.IndexOf(tpl);
-            _ctorParameter.Remove(tpl);
-            var newTpl = new Tuple<string, Type, object>(tpl.Item1, tpl.Item2, newInstance);
-            _ctorParameter.Insert(tplPos, newTpl);
-
-            return newInstance;
+            var paramInfo = _ctorParameter.FirstOrDefault(pi => typeof(TK) == pi.Type);
+            if (paramInfo == null)
+                throw new ArgumentException(
+                    $"The specified type '{typeof(TK).Name}' is not a constructor parameter of '{typeof(T).Name}'.");
+            return paramInfo;
         }
 
-        /// <summary>
-        /// get the substitute for the given type<see cref="TK"/>
-        /// </summary>
-        public TK For<TK>()
+        private ParamInfo GetParamInfo(string parameter)
         {
-            var tpl =
-                _ctorParameter.FirstOrDefault(
-                    tuple => typeof(TK) == tuple.Item2);
-
-            if (tpl != null) return (TK)tpl.Item3;
-            throw new ArgumentException("given type is not a constructor parameter for " + typeof(T).Name);
+            var paramInfo = _ctorParameter.FirstOrDefault(pi => string.Compare(pi.Name, parameter.ToLower(), StringComparison.OrdinalIgnoreCase) == 0);
+            if (paramInfo == null)
+                throw new ArgumentException(
+                    $"The specified parameter '{parameter}' is not a constructor parameter of '{typeof(T).Name}'.");
+            return paramInfo;
         }
 
-        /// <summary>
-        /// get the substitute for the <see cref="parameter"/>
-        /// </summary>
-        public TK For<TK>(string parameter)
+        private void ReplaceInstance<TK>(ParamInfo paramInfo, TK newInstance)
         {
-            var tpl =
-                _ctorParameter.FirstOrDefault(
-                    tuple =>
-                        string.Compare(tuple.Item1, parameter.ToLower(), StringComparison.OrdinalIgnoreCase) == 0);
-
-            if (tpl != null) return (TK)tpl.Item3;
-            throw new ArgumentException("given type is not a constructor parameter for " + typeof(T).Name);
+            var index = _ctorParameter.IndexOf(paramInfo);
+            _ctorParameter.Remove(paramInfo);
+            var newTpl = new ParamInfo(paramInfo.Name, paramInfo.Type, newInstance);
+            _ctorParameter.Insert(index, newTpl);
         }
 
-        /// <summary>
-        ///  create the SUT with the parameter from the dictionary
-        /// </summary>
-        public T BuildSut()
+        private class ParamInfo
         {
-            return (T)Activator.CreateInstance(typeof(T), _ctorParameter.Select(t => t.Item3).ToArray());
+            public ParamInfo(string name, Type type, object instance)
+            {
+                Name = name;
+                Type = type;
+                Instance = instance;
+            }
+
+            public string Name { get;  }
+            public Type Type { get; }
+            public object Instance { get; }
         }
     }
 }

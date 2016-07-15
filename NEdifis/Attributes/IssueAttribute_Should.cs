@@ -13,8 +13,12 @@ namespace NEdifis.Attributes
         [Test]
         public void Be_Creatable()
         {
-            var ctx = new ContextFor<IssueAttribute>();
-            var sut = ctx.BuildSut();
+            // ReSharper disable ObjectCreationAsStatement
+            0.Invoking(x => new IssueAttribute(null)).ShouldThrow<ArgumentException>();
+            1.Invoking(x => new IssueAttribute("\t\r\n")).ShouldThrow<ArgumentException>();
+            // ReSharper restore ObjectCreationAsStatement
+
+            var sut = new IssueAttribute("#42");
 
             sut.Should().NotBeNull();
             sut.Should().BeAssignableTo<Attribute>();

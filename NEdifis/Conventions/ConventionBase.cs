@@ -9,17 +9,34 @@ using NUnit.Framework;
 
 namespace NEdifis.Conventions
 {
+    /// <summary>
+    /// A convention class ready to serve as a collection of your conventions.
+    /// </summary>
     [TestFixture]
     public class ConventionBase
     {
+        /// <summary>
+        /// The conventions to apply on the selected types
+        /// </summary>
         public List<IVerifyConvention> Conventions { get; } = new List<IVerifyConvention>();
 
+        /// <summary>
+        /// A helper function to select the types for convention checks.
+        /// </summary>
+        /// <param name="pattern">An optional type selector</param>
+        /// <typeparam name="TFixture">A fixture type that is used to select the assembly to scan for types</typeparam>
+        /// <returns></returns>
         public static IEnumerable<Type> ClassesToTestFor<TFixture>(Func<Type, bool> pattern = null) 
         {
             return typeof(TFixture).Assembly.GetTypes()
                 .Where(pattern ?? DefaultClassPattern);
         }
 
+        /// <summary>
+        /// A helper function to select conventions dynamically from an assembly.
+        /// </summary>
+        /// <param name="pattern">An optional type selector</param>
+        /// <typeparam name="TConvention">A convention type that is used to select the assembly to scan for conventions</typeparam>
         public static IEnumerable<IVerifyConvention> ConventionsFor<TConvention>(Func<Type, bool> pattern = null)
         {
             return typeof(TConvention).Assembly.GetTypes()

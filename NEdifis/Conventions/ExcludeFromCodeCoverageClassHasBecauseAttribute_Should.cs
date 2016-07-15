@@ -6,16 +6,14 @@ using NUnit.Framework;
 namespace NEdifis.Conventions
 {
     [TestFixtureFor(typeof(ExcludeFromCodeCoverageClassHasBecauseAttribute))]
-    // ReSharper disable once InconsistentNaming
+    // ReSharper disable InconsistentNaming
     internal class ExcludeFromCodeCoverageClassHasBecauseAttribute_Should
     {
-        // ReSharper disable once InconsistentNaming
         [ExcludeFromCodeCoverage]
         private class Excluded_From_Code_Without_Because { }
 
         [ExcludeFromCodeCoverage]
         [Because("this is a test")]
-        // ReSharper disable once InconsistentNaming
         private class Excluded_From_Code_With_Because { }
 
         [Test]
