@@ -14,8 +14,8 @@ namespace NEdifis.Attributes
         public void Be_Creatable()
         {
             // ReSharper disable ObjectCreationAsStatement
-            0.Invoking(x => new IssueAttribute(null)).ShouldThrow<ArgumentException>();
-            1.Invoking(x => new IssueAttribute("\t\r\n")).ShouldThrow<ArgumentException>();
+            0.Invoking(x => new IssueAttribute(null)).Should().Throw<ArgumentException>();
+            1.Invoking(x => new IssueAttribute("\t\r\n")).Should().Throw<ArgumentException>();
             // ReSharper restore ObjectCreationAsStatement
 
             var sut = new IssueAttribute("#42");

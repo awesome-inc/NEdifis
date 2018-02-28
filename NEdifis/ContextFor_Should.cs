@@ -19,10 +19,10 @@ namespace NEdifis
             public void Handle_Class_With_Nested_Constructor_Parameter()
             {
                 // because NSubstitute does not support class with constructor parameter
-                0.Invoking(x => Substitute.For<Class_With_One_Constructor_Parameter>()).ShouldThrow<Exception>();
+                0.Invoking(x => Substitute.For<Class_With_One_Constructor_Parameter>()).Should().Throw<Exception>();
 
                 // as long as they are public
-                1.Invoking(x => Substitute.For<Class_With_One_Empty_Constructor>()).ShouldThrow<Exception>();
+                1.Invoking(x => Substitute.For<Class_With_One_Empty_Constructor>()).Should().Throw<Exception>();
             }
         }
 
@@ -139,10 +139,10 @@ namespace NEdifis
             var ctx = new ContextFor<Class_With_One_Constructor_Parameter>();
 
             // on generic
-            ctx.Invoking(x => x.For<IFormattable>()).ShouldThrow<ArgumentException>();
+            ctx.Invoking(x => x.For<IFormattable>()).Should().Throw<ArgumentException>();
 
             // on named parameter
-            ctx.Invoking(x => x.For<IList<string>>("this_does_not_exist")).ShouldThrow<ArgumentException>();
+            ctx.Invoking(x => x.For<IList<string>>("this_does_not_exist")).Should().Throw<ArgumentException>();
         }
 
         [Test]
@@ -151,7 +151,7 @@ namespace NEdifis
             var ctx = new ContextFor<Class_With_One_Constructor_Parameter>();
 
             // wrong parameter type
-            ctx.Invoking(x => x.For<IFormattable>("param1")).ShouldThrow<InvalidCastException>();
+            ctx.Invoking(x => x.For<IFormattable>("param1")).Should().Throw<InvalidCastException>();
         }
 
         [Test]
@@ -287,7 +287,7 @@ namespace NEdifis
 
             // get a keynotfound exception if wrong parameter
             ctx.Invoking(c => c.Use("I am not a constructor parameter"))
-                .ShouldThrow<ArgumentException>();
+                .Should().Throw<ArgumentException>();
         }
 
         [Test(Description = "test also primitives, not only substitutes")]
@@ -341,7 +341,7 @@ namespace NEdifis
 
             // now we get it explicitly
             var param1a = ctx.For<IList<string>>("param1");
-            ctx.Invoking(c => c.For<IList<string>>("param2")).ShouldThrow<ArgumentException>();
+            ctx.Invoking(c => c.For<IList<string>>("param2")).Should().Throw<ArgumentException>();
             param1a.Should().NotBeNull();
 
             // lets see if the params got injected properly
