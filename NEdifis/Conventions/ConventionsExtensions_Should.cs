@@ -27,16 +27,16 @@ namespace NEdifis.Conventions
             convention.Filter.Returns(t => t == typeToTest);
             const string error = "wrong type";
             Exception exception = new ArgumentException(error);
-            convention.When(x => x.Verify(typeToTest)).Do(x => { throw exception; });
+            convention.When(x => x.Verify(typeToTest)).Do(x => throw exception);
 
             convention.Invoking(x => x.Check(typeToTest))
-                .ShouldThrow<ConventionException>()
+                .Should().Throw<ConventionException>()
                 .WithMessage($"Type '{typeToTest}' breaks convention '{convention.GetType().Name}': {error}");
 
             exception = new ConventionException(convention, typeToTest, exception);
 
             convention.Invoking(x => x.Check(typeToTest))
-                .ShouldThrow<ConventionException>()
+                .Should().Throw<ConventionException>()
                 .WithMessage($"Type '{typeToTest}' breaks convention '{convention.GetType().Name}': {error}");
         }
 
@@ -46,11 +46,11 @@ namespace NEdifis.Conventions
             var convention1 = Substitute.For<IVerifyConvention>();
             var typeToTest = typeof(string);
             convention1.Filter.Returns(t => t == typeToTest);
-            convention1.When(x => x.Verify(typeToTest)).Do(x => {throw new InvalidCastException("test");});
+            convention1.When(x => x.Verify(typeToTest)).Do(x => throw new InvalidCastException("test"));
             var conventions = new[] {convention1};
 
             conventions.Invoking(x => x.Check(typeToTest))
-                .ShouldThrow<AssertionException>()
+                .Should().Throw<AssertionException>()
                 .WithMessage($"Some conventions were broken:\r\n  1. Type '{typeToTest}' breaks convention '{convention1.GetType().Name}': test");
         }
     }

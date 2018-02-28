@@ -16,7 +16,7 @@ namespace NEdifis.Conventions
             var sut = new AllClassesNeedATest();
 
             sut.Verify(typeof(AllClassesNeedATest));
-            sut.Invoking(x => x.Verify(typeof(Does_Not_Have_A_Test))).ShouldThrow<AssertionException>();
+            sut.Invoking(x => x.Verify(typeof(Does_Not_Have_A_Test))).Should().Throw<AssertionException>();
         }
 
         [Test, Issue("#6", Title = "convention implementations are private")]

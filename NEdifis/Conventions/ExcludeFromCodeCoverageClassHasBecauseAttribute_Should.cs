@@ -22,7 +22,7 @@ namespace NEdifis.Conventions
             var sut = new ExcludeFromCodeCoverageClassHasBecauseAttribute();
 
             sut.Verify(typeof(Excluded_From_Code_With_Because));
-            sut.Invoking(x => x.Verify(typeof(Excluded_From_Code_Without_Because))).ShouldThrow<AssertionException>();
+            sut.Invoking(x => x.Verify(typeof(Excluded_From_Code_Without_Because))).Should().Throw<AssertionException>();
         }
 
         [Test, Issue("#6", Title = "convention implementations are private")]

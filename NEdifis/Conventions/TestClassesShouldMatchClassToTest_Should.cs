@@ -21,8 +21,8 @@ namespace NEdifis.Conventions
             var sut = new TestClassesShouldMatchClassToTest();
 
             sut.Verify(typeof(TestClassesShouldMatchClassToTest_Should));
-            sut.Invoking(x => x.Verify(typeof(I_Am_A_Test_WithoutShould))).ShouldThrow<AssertionException>();
-            sut.Invoking(x => x.Verify(typeof(Am_A_Should_Without_TestFixtureFor_Should))).ShouldThrow<AssertionException>();
+            sut.Invoking(x => x.Verify(typeof(I_Am_A_Test_WithoutShould))).Should().Throw<AssertionException>();
+            sut.Invoking(x => x.Verify(typeof(Am_A_Should_Without_TestFixtureFor_Should))).Should().Throw<AssertionException>();
         }
 
         [Test, Issue("#6", Title = "convention implementations are private")]

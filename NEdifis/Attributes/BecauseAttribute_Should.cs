@@ -16,8 +16,8 @@ namespace NEdifis.Attributes
             sut.Reason.Should().Be("because why");
 
             // ReSharper disable ObjectCreationAsStatement
-            true.Invoking(b => new BecauseAttribute(null)).ShouldThrow<ArgumentNullException>();
-            true.Invoking(b => new BecauseAttribute(string.Empty)).ShouldThrow<ArgumentException>();
+            true.Invoking(b => new BecauseAttribute(null)).Should().Throw<ArgumentNullException>();
+            true.Invoking(b => new BecauseAttribute(string.Empty)).Should().Throw<ArgumentException>();
             // ReSharper restore ObjectCreationAsStatement
         }
     }
