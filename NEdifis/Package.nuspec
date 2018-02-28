@@ -1,4 +1,4 @@
-﻿<?xml version="1.0"?>
+<?xml version="1.0"?>
 <package >
   <metadata>
     <id>NEdifis</id>
@@ -21,7 +21,7 @@
     </frameworkAssemblies>
     <dependencies>
       <dependency id="FluentAssertions" version="[5.0.0,6.0.0)"/>
-      <dependency id="NSubstitute" version="[1.9.2.0,2.0.0)" />
+      <dependency id="NSubstitute" version="[3.0.0,4.0.0)" />
       <dependency id="NUnit" version="[3.0.0,4.0.0)"/>
     </dependencies>
   </metadata>
