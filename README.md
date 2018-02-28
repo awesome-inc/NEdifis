@@ -1,9 +1,9 @@
 # NEdifis
 
-[![Build status](https://ci.appveyor.com/api/projects/status/u42b929walkd6086?svg=true)](https://ci.appveyor.com/project/awesome-inc-build/fluentassertions-autofac)
+[![Build status](https://ci.appveyor.com/api/projects/status/tghwql6ktsc9enqw?svg=true)](https://ci.appveyor.com/project/awesome-inc-build/nedifis)
 [![NuGet](https://img.shields.io/nuget/v/NEdifis.svg?style=flat-square)](https://www.nuget.org/packages/NEdifis/)
 [![NuGet](https://img.shields.io/nuget/dt/NEdifis.svg?style=flat-square)](https://www.nuget.org/packages/NEdifis/)
-![Coverage Status](https://coveralls.io/repos/github/awesome-inc/NEdifis/badge.svg?branch=develop)](https://coveralls.io/github/awesome-inc/NEdifis?branch=develop)
+[![Coverage Status](https://coveralls.io/repos/github/awesome-inc/NEdifis/badge.svg?branch=develop)](https://coveralls.io/github/awesome-inc/NEdifis?branch=develop)
 
 Framework for enhanced testing using NUnit and NSubstitute. This project contains classes and
 attributes which can be used to simplify testing and enforcing conventions to your tests. It
