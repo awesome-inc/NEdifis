@@ -78,6 +78,9 @@
     <Compile Include="Conventions\ConventionsExtensions.cs" />
     <Compile Include="Conventions\ConventionsExtensions_Should.cs" />
     <Compile Include="Conventions\NedifisConventions.cs" />
+    <Compile Include="Data\Marvel.cs" />
+    <Compile Include="Data\Randomized.cs" />
+    <Compile Include="Data\Randomized_Should.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Attributes\BecauseAttribute.cs" />
     <Compile Include="Attributes\BecauseAttribute_Should.cs" />
