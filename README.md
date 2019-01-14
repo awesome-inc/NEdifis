@@ -13,7 +13,7 @@ helps to glue your implementation and tests together and reference each other.
 
 Edifis is "the best architect in Alexandria", which according to Cleopatra is hardly saying much... And we have to
 admit she's right when we look at the ramshackle structures built by Edifis and wonderfully illustrated
-by Albert Uderzo...[more](http://www.asterix.com/the-a-to-z-of-asterix/characters/edifis.html "Edifis")
+by Albert Uderzo...[more](https://www.asterix.com/en/portfolio/edifis/?portfolioCats=311 "Edifis")
 
 ## `ContextFor`
 
